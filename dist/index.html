@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#eee4d0" />
+    <meta name="description" content="Личный вишлист Лии" />
+    <title>Лия — вишлист</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="hero" aria-labelledby="title">
+        <div class="topline"><span>вишлист</span><span>лия — 27</span><span>санкт-петербург</span></div>
+        <figure class="hero-photo"><img src="assets/raw-9.png" alt="Ночное небо и цветущие ветви" /></figure>
+        <p class="date">15.11</p>
+        <a class="scroll-cue" href="#gifts">листать дальше <span>↓</span></a>
+      </section>
+
+      <section class="about" aria-labelledby="title">
+        <header class="section-heading"><span>(1) о списке</span><h1 id="title">теперь я выросла?</h1></header>
+        <div class="about-layout">
+          <div class="about-copy">
+            <p>впервые за долгое время я буду праздновать свой день рождения в россии, поэтому решила собрать вишлист — мне захотелось получить подарки не только в виде переводов на карту, а ещё и в виде чего-то осязаемого, выбранного и подаренного вами.</p>
+            <p>день рождения для меня — один из самых любимых и важных праздников. сейчас я многое узнаю о себе, своих желаниях и предпочтениях, и мне интересно делиться этим с вами.</p>
+            <p>я немного привереда и контролёр, поэтому мне спокойнее заранее знать, что подарки мне действительно понравятся ахах. но сам вишлист для меня — не столько список вещей, сколько повод чуть больше сосредоточиться на себе и своих желаниях. а заодно — помочь вам меня порадовать ♡</p>
+            <p>при этом никаких обязательств: я рада любому вниманию, поздравлениям, денежкам и просто тому, что вы есть в моей жизни.</p>
+          </div>
+          <div class="memory-wall" aria-label="Коллаж воспоминаний">
+            <img class="memory memory-a" src="assets/raw-3.jpeg" alt="Велосипед с цветами" />
+            <img class="memory memory-b" src="assets/raw-17.jpeg" alt="Фотографии и тени" />
+            <img class="memory memory-c" src="assets/raw-18.jpeg" alt="Санкт-Петербург" />
+            <img class="stamp" src="assets/raw-13.png" alt="" />
+            <span class="number">(01)</span><span class="number n2">(02)</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="rules" aria-label="Как работает вишлист">
+        <img class="postage" src="assets/raw-5.png" alt="" />
+        <div class="rules-title"><span>подсказка</span><h2>как это работает</h2></div>
+        <ol>
+          <li><b>01</b><span>выбери подарок и нажми «подарю это»</span></li>
+          <li><b>02</b><span>он закроется для остальных, чтобы ничего не повторилось</span></li>
+          <li><b>03</b><span>я увижу только, что подарок выбран, — но не кем</span></li>
+          <li><b>04</b><span>можешь выбрать до двух подарков или отменить бронь при необходимости</span></li>
+        </ol>
+        <p class="help">если что-то не получится, можешь спросить у меня в лс — ниже будет контакт ♡</p>
+      </section>
+
+      <section class="gifts" id="gifts" aria-labelledby="gifts-title">
+        <header class="section-heading"><span>(2) подарки</span><h2 id="gifts-title">что я хотела бы получить</h2></header>
+        <p class="gifts-intro">выбери до двух вещей — выбранные позиции сохраняются только в этом браузере.</p>
+        <div class="gift-grid" id="gift-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="fallback" aria-label="Другой вариант подарка">
+        <img src="assets/raw-15.png" alt="Розы в вечернем саду" />
+        <div><span>если ничего не откликнулось</span><p>это совершенно нормально ♡ можно оставить денежку по реквизитам ниже, если так удобнее, но это тоже совсем не обязательно. а можно просто отправить мне открытку в личные сообщения — я буду рада любому знаку внимания и тёплым словам.</p></div>
+      </section>
+
+      <section class="contacts" aria-labelledby="contacts-title">
+        <header class="section-heading"><span>(3) контакты</span><h2 id="contacts-title">куда дарить</h2><p>если что-то непонятно — пишите в тг</p></header>
+        <div class="contact-grid">
+          <article><h3>пункты выдачи</h3><p><b>wildberries</b><br />ул. вавиловых 9к5, санкт-петербург</p><p><b>ozon</b><br />ул. вавиловых 9к5, санкт-петербург</p><small>получатель — юлия с., телефон или личный адрес можно узнать в личке</small></article>
+          <article class="bank"><h3>карта для переводов</h3><div class="card-face"><span>сбер</span><b>4276 5400 2472 5016</b><em>visa</em><strong>юлия с.</strong></div><button class="secondary" data-copy="4276540024725016">скопировать номер</button></article>
+          <article class="telegram"><h3>личный телеграм</h3><a href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a><h3>тг — канал</h3><p class="channel">сусличья нора</p><div><a class="secondary link-button" href="https://t.me/liasslv" target="_blank" rel="noreferrer">личка</a><a class="secondary link-button" href="https://t.me/liasslv" target="_blank" rel="noreferrer">открыть канал</a></div></article>
+        </div>
+        <footer><span>вишлист — 2026</span><a href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a></footer>
+      </section>
+    </main>
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
