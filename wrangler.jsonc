@@ -6,7 +6,7 @@
     {
       "binding": "DB",
       "database_name": "lia-wishlist",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "e09e2177-520e-4a0c-a04f-0a3e70a78608",
       "migrations_dir": "migrations"
     }
   ]
