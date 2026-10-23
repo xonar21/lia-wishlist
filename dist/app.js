@@ -20,9 +20,19 @@ const gifts = [
 ];
 const grid = document.querySelector('#gift-grid');
 const toast = document.querySelector('.toast');
-let selected = new Set(JSON.parse(localStorage.getItem('lia-wishlist-reservations') || '[]'));
+const tokenKey = 'lia-wishlist-token';
+function guestToken(){try{let t=localStorage.getItem(tokenKey);if(!t){t=crypto.randomUUID();localStorage.setItem(tokenKey,t)}return t}catch{return guestToken.fallback||(guestToken.fallback=crypto.randomUUID())}}
+let selected = new Set();
+let others = new Set();
+let busy = false;
+async function api(method,id){try{const res=await fetch('/api/reservations',{method,headers:{'x-guest-token':guestToken(),'content-type':'application/json'},body:id===undefined?undefined:JSON.stringify({id})});return{ok:res.ok,data:await res.json().catch(()=>({}))}}catch{return{ok:false,data:{}}}}
+function sync(data){if(Array.isArray(data.mine)&&Array.isArray(data.others)){selected=new Set(data.mine);others=new Set(data.others)}}
+async function refresh(){if(busy)return;const {ok,data}=await api('GET');if(ok){sync(data);render()}}
 function notify(message){toast.textContent=message;toast.classList.add('is-visible');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.remove('is-visible'),2800)}
-function render(){grid.innerHTML=gifts.map(([name,description,price,state],index)=>{const own=selected.has(index);const unavailable=state==='taken';const status=unavailable?'уже кто-то подарит':own||state==='reserved'?'ты даришь · отменить':'подарю это';return `<article class="gift-card ${own?'reserved':''}" style="--tilt:${(index%3-1)*2.2}deg"><div class="gift-art"><span class="gift-index">(${String(index+1).padStart(2,'0')})</span><img src="assets/raw-10.png" alt="${name}"></div><div class="gift-info"><h3>${name}</h3><p>${description}</p><div class="gift-meta"><span>${price}</span><a href="#contacts">link ↗</a></div><button class="reserve" data-id="${index}" ${unavailable?'disabled':''}>${status}</button></div></article>`}).join('')}
-grid.addEventListener('click',(event)=>{const button=event.target.closest('.reserve');if(!button||button.disabled)return;const id=Number(button.dataset.id);if(selected.has(id)){selected.delete(id);notify('бронь отменена')}else if(selected.size>=2){notify('можно выбрать не больше двух подарков')}else{selected.add(id);notify('подарок забронирован ♡')}localStorage.setItem('lia-wishlist-reservations',JSON.stringify([...selected]));render()});
+function render(){grid.innerHTML=gifts.map(([name,description,price,state],index)=>{const own=selected.has(index);const unavailable=!own&&(state==='taken'||state==='reserved'||others.has(index));const status=unavailable?'уже кто-то подарит':own?'ты даришь · отменить':'подарю это';return `<article class="gift-card ${own?'reserved':''}" style="--tilt:${(index%3-1)*2.2}deg"><div class="gift-art"><span class="gift-index">(${String(index+1).padStart(2,'0')})</span><img src="assets/raw-10.png" alt="${name}"></div><div class="gift-info"><h3>${name}</h3><p>${description}</p><div class="gift-meta"><span>${price}</span><a href="#contacts">link ↗</a></div><button class="reserve" data-id="${index}" ${unavailable?'disabled':''}>${status}</button></div></article>`}).join('')}
+grid.addEventListener('click',async(event)=>{const button=event.target.closest('.reserve');if(!button||button.disabled||busy)return;const id=Number(button.dataset.id);const cancel=selected.has(id);busy=true;const {ok,data}=await api(cancel?'DELETE':'POST',id);busy=false;sync(data);if(ok)notify(cancel?'бронь отменена':'подарок забронирован ♡');else if(data.error==='limit')notify('можно выбрать не больше двух подарков');else if(data.error==='taken')notify('этот подарок уже забронировал кто-то другой');else notify('не получилось, попробуй ещё раз');render()});
 document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(button.dataset.copy);notify('номер карты скопирован')}catch{notify('не удалось скопировать номер')}}));
 render();
+refresh();
+setInterval(refresh,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
