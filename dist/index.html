@@ -3,74 +3,162 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#eee4d0" />
+    <meta name="theme-color" content="#f3ece2" />
     <meta name="description" content="Личный вишлист Лии" />
     <title>Лия — вишлист</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preload" as="image" href="assets/paper.webp" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <section class="hero" aria-labelledby="title">
-        <div class="topline"><span>вишлист</span><span>лия — 27</span><span>санкт-петербург</span></div>
-        <figure class="hero-photo"><img src="assets/raw-9.png" alt="Ночное небо и цветущие ветви" /></figure>
-        <p class="date">15.11</p>
-        <a class="scroll-cue" href="#gifts">листать дальше <span>↓</span></a>
-      </section>
+    <main class="page">
+      <div class="stage">
+        <section class="hero" aria-label="Вишлист Лии">
+          <p class="abs hero-name" style="--x:685;--y:86">лия  -  27</p>
+          <p class="abs hero-tag" style="--x:266;--y:248">вишлист</p>
+          <p class="abs hero-city" style="--x:1115;--y:470">санкт-петербург</p>
+          <figure class="abs hero-photo" style="--x:65;--y:556"><img src="assets/hero.webp" alt="Полумесяц среди цветущей бугенвиллеи" /></figure>
+          <p class="abs hero-date" style="--x:703;--y:1127">15.11</p>
+        </section>
 
-      <section class="about" aria-labelledby="title">
-        <header class="section-heading"><span>(1) о списке</span><h1 id="title">теперь я выросла?</h1></header>
-        <div class="about-layout">
-          <div class="about-copy">
-            <p>впервые за долгое время я буду праздновать свой день рождения в россии, поэтому решила собрать вишлист — мне захотелось получить подарки не только в виде переводов на карту, а ещё и в виде чего-то осязаемого, выбранного и подаренного вами.</p>
-            <p>день рождения для меня — один из самых любимых и важных праздников. сейчас я многое узнаю о себе, своих желаниях и предпочтениях, и мне интересно делиться этим с вами.</p>
-            <p>я немного привереда и контролёр, поэтому мне спокойнее заранее знать, что подарки мне действительно понравятся ахах. но сам вишлист для меня — не столько список вещей, сколько повод чуть больше сосредоточиться на себе и своих желаниях. а заодно — помочь вам меня порадовать ♡</p>
-            <p>при этом никаких обязательств: я рада любому вниманию, поздравлениям, денежкам и просто тому, что вы есть в моей жизни.</p>
+        <section class="about" aria-labelledby="about-title">
+          <p class="abs kicker" style="--x:66;--y:1273">(1) о  списке</p>
+          <h1 class="abs title" id="about-title" style="--x:66;--y:1303">теперь я выросла?</h1>
+          <p class="abs about-text" style="--x:294;--y:1376">
+            <span style="--i:231">впервые</span>
+            <span style="--i:284">за долгое время</span>
+            <span style="--i:317">я буду праздновать</span>
+            <span style="--i:346">свой день рождения</span>
+            <span style="--i:351">в россии,</span>
+            <span style="--i:351">поэтому</span>
+            <span style="--i:327">решила собрать вишлист —</span>
+            <span style="--i:303">мне захотелось получить подарки</span>
+            <span style="--i:250">не только в виде переводов на карту,</span>
+            <span style="--i:216">а ещё и в виде чего-то осязаемого,</span>
+            <span style="--i:174">выбранного</span>
+            <span style="--i:121">и подаренного вами.</span>
+            <span class="gap"></span>
+            <span style="--i:57">день рождения для меня —</span>
+            <span style="--i:19">один из самых любимых</span>
+            <span style="--i:34">и важных праздников.</span>
+            <span style="--i:67">сейчас я многое узнаю о себе,</span>
+            <span style="--i:72">своих желаниях и предпочтениях,</span>
+            <span style="--i:48">и мне интересно делиться этим</span>
+            <span style="--i:34">с вами.</span>
+            <span class="gap"></span>
+            <span style="--i:24">я немного привереда и контролёр,</span>
+            <span style="--i:48">поэтому мне спокойнее заранее знать,</span>
+            <span style="--i:38">что подарки мне</span>
+            <span style="--i:0">действительно</span>
+            <span style="--i:20">понравятся</span>
+            <span style="--i:43">ахах.</span>
+            <span style="--i:77">но сам вишлист для меня —</span>
+            <span style="--i:82">не столько список вещей,</span>
+            <span style="--i:106">сколько повод чуть больше сосредоточиться</span>
+            <span style="--i:121">на себе и своих желаниях.</span>
+            <span style="--i:149">а заодно —</span>
+            <span style="--i:164">помочь вам меня порадовать ♡</span>
+            <span class="gap"></span>
+            <span style="--i:198">при этом никаких обязательств:</span>
+            <span style="--i:202">я рада любому вниманию,</span>
+            <span style="--i:193">поздравлениям,</span>
+            <span style="--i:163">денежкам</span>
+            <span style="--i:121">и просто тому,</span>
+            <span style="--i:73">что вы есть в моей жизни.</span>
+          </p>
+          <img class="abs stamp" style="--x:1089;--y:2182" src="assets/stamp.webp" alt="" />
+        </section>
+
+        <section class="rules" aria-labelledby="rules-title">
+          <img class="abs rules-bike" style="--x:567;--y:2772" src="assets/bike.webp" alt="Велосипед с цветами в корзинке" />
+          <p class="abs rules-hint" style="--x:881;--y:2772"><span>подсказка</span><b id="rules-title">как это работает</b></p>
+          <img class="abs rules-canal" style="--x:567;--y:2954" src="assets/canal.webp" alt="Канал в Санкт-Петербурге" />
+          <ol class="notes">
+            <li><span class="abs note" style="--x:466;--y:2970">выбери
+подарок
+и
+нажми
+“подарю это”</span></li>
+            <li><span class="abs note" style="--x:555;--y:2970">он закроется
+  для остальных,</span> <span class="abs note" style="--x:635;--y:2990">чтобы
+    ничего
+     не повторилось</span></li>
+            <li><span class="abs note" style="--x:734;--y:2972">       я увижу только,
+   что подарок
+выбран,</span> <span class="abs note note-end" style="--x:881;--y:2999">— но не кем</span></li>
+            <li><span class="abs note note-end" style="--x:994;--y:2970">можешь выбрать
+до 2 подарков
+или
+отменить бронь
+при необходимости</span></li>
+          </ol>
+          <p class="abs rules-help" style="--x:719;--y:3292">если что-то не получится, можешь спросить у меня в лс
+(ниже будет контакт) или у моей юли (если у тебя есть ее контакт)</p>
+        </section>
+
+        <section class="gifts" id="gifts" aria-labelledby="gifts-title">
+          <p class="abs kicker" style="--x:66;--y:3574">(2) подарки</p>
+          <h2 class="abs title" id="gifts-title" style="--x:66;--y:3604">что я хотела бы получить</h2>
+          <div class="gift-list" id="gift-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="fallback" aria-label="Если ничего не откликнулось">
+          <p class="abs fallback-text" style="--x:720;--y:10422">если вам не откликнулся ни один из вариантов — это совершенно нормально ♡
+можно оставить денежку по реквизитам ниже, если вам так удобнее,
+но это тоже совсем не обязательно.
+а можно просто отправить мне открытку в личные сообщения —
+я буду рада любому знаку внимания и тёплым словам.</p>
+          <img class="abs fallback-dog" style="--x:641;--y:10610" src="assets/dog.webp" alt="" />
+        </section>
+
+        <section class="contacts" id="contacts" aria-labelledby="contacts-title">
+          <p class="abs kicker" style="--x:75;--y:10827">(3) контакты</p>
+          <h2 class="abs title" id="contacts-title" style="--x:75;--y:10857">куда дарить</h2>
+          <p class="abs contacts-note" style="--x:1091;--y:10887">если что-то непонятно — пишите в тг</p>
+          <div class="contact-boxes">
+            <article class="abs box" style="--x:75;--y:10952">
+              <h3 class="abs box-title" style="--x:25;--y:25">пункты выдачи</h3>
+              <p class="abs pickup-label" style="--x:25;--y:93">wildberries</p>
+              <p class="abs pickup-address" style="--x:25;--y:121">ул. вавиловых 9к5, санкт-петербург</p>
+              <span class="abs dots" style="--x:26;--y:159" aria-hidden="true"></span>
+              <p class="abs pickup-label" style="--x:25;--y:185">ozon</p>
+              <p class="abs pickup-address" style="--x:25;--y:214">ул. вавиловых 9к5, санкт-петербург</p>
+              <span class="abs dots" style="--x:30;--y:251" aria-hidden="true"></span>
+              <p class="abs pickup-note" style="--x:25;--y:325">получатель - юлия с., телефон или личный адрес можно узнать в личке</p>
+            </article>
+            <article class="abs box" style="--x:510;--y:10952">
+              <h3 class="abs box-title" style="--x:25;--y:25">карта для переводов</h3>
+              <div class="abs bank-card" style="--x:26;--y:79">
+                <span class="abs bank-name" style="--x:20;--y:21">сбер</span>
+                <span class="abs bank-system" style="--x:302;--y:21">visa</span>
+                <span class="abs bank-number" style="--x:20;--y:111">4276    5400    2472    5016</span>
+                <span class="abs bank-holder" style="--x:20;--y:177">юлия с.</span>
+              </div>
+              <button class="abs box-button bank-copy" style="--x:26;--y:314" type="button" data-copy="4276540024725016">скопировать номер</button>
+            </article>
+            <article class="abs box" style="--x:945;--y:10952">
+              <h3 class="abs box-title" style="--x:33;--y:25">личный телеграм</h3>
+              <a class="abs tg-handle" style="--x:33;--y:52" href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a>
+              <h3 class="abs box-title" style="--x:33;--y:131">тг - канал</h3>
+              <a class="abs tg-channel" style="--x:33;--y:158" href="https://t.me/liasslv" target="_blank" rel="noreferrer">сусличья нора</a>
+              <p class="abs tg-about" style="--x:33;--y:208">чтобы вступить, нужно отправить заявку, но я там рассказываю подробно о себе
+и своей любви к жизни,
+расскажу и про подарки, наверное</p>
+              <div class="tg-buttons">
+                <a class="abs box-button tg-button" style="--x:33;--y:318" href="https://t.me/liasslv" target="_blank" rel="noreferrer">личка</a>
+                <a class="abs box-button tg-button" style="--x:210;--y:318" href="https://t.me/liasslv" target="_blank" rel="noreferrer">открыть канал</a>
+              </div>
+            </article>
           </div>
-          <div class="memory-wall" aria-label="Коллаж воспоминаний">
-            <img class="memory memory-a" src="assets/raw-3.jpeg" alt="Велосипед с цветами" />
-            <img class="memory memory-b" src="assets/raw-17.jpeg" alt="Фотографии и тени" />
-            <img class="memory memory-c" src="assets/raw-18.jpeg" alt="Санкт-Петербург" />
-            <img class="stamp" src="assets/raw-13.png" alt="" />
-            <span class="number">(01)</span><span class="number n2">(02)</span>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="rules" aria-label="Как работает вишлист">
-        <img class="postage" src="assets/raw-5.png" alt="" />
-        <div class="rules-title"><span>подсказка</span><h2>как это работает</h2></div>
-        <ol>
-          <li><b>01</b><span>выбери подарок и нажми «подарю это»</span></li>
-          <li><b>02</b><span>он закроется для остальных, чтобы ничего не повторилось</span></li>
-          <li><b>03</b><span>я увижу только, что подарок выбран, — но не кем</span></li>
-          <li><b>04</b><span>можешь выбрать до двух подарков или отменить бронь при необходимости</span></li>
-        </ol>
-        <p class="help">если что-то не получится, можешь спросить у меня в лс — ниже будет контакт ♡</p>
-      </section>
-
-      <section class="gifts" id="gifts" aria-labelledby="gifts-title">
-        <header class="section-heading"><span>(2) подарки</span><h2 id="gifts-title">что я хотела бы получить</h2></header>
-        <p class="gifts-intro">выбери до двух вещей — выбранный подарок закроется для остальных гостей.</p>
-        <div class="gift-grid" id="gift-grid" aria-live="polite"></div>
-      </section>
-
-      <section class="fallback" aria-label="Другой вариант подарка">
-        <img src="assets/raw-15.png" alt="Розы в вечернем саду" />
-        <div><span>если ничего не откликнулось</span><p>это совершенно нормально ♡ можно оставить денежку по реквизитам ниже, если так удобнее, но это тоже совсем не обязательно. а можно просто отправить мне открытку в личные сообщения — я буду рада любому знаку внимания и тёплым словам.</p></div>
-      </section>
-
-      <section class="contacts" aria-labelledby="contacts-title">
-        <header class="section-heading"><span>(3) контакты</span><h2 id="contacts-title">куда дарить</h2><p>если что-то непонятно — пишите в тг</p></header>
-        <div class="contact-grid">
-          <article><h3>пункты выдачи</h3><p><b>wildberries</b><br />ул. вавиловых 9к5, санкт-петербург</p><p><b>ozon</b><br />ул. вавиловых 9к5, санкт-петербург</p><small>получатель — юлия с., телефон или личный адрес можно узнать в личке</small></article>
-          <article class="bank"><h3>карта для переводов</h3><div class="card-face"><span>сбер</span><b>4276 5400 2472 5016</b><em>visa</em><strong>юлия с.</strong></div><button class="secondary" data-copy="4276540024725016">скопировать номер</button></article>
-          <article class="telegram"><h3>личный телеграм</h3><a href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a><h3>тг — канал</h3><p class="channel">сусличья нора</p><div><a class="secondary link-button" href="https://t.me/liasslv" target="_blank" rel="noreferrer">личка</a><a class="secondary link-button" href="https://t.me/liasslv" target="_blank" rel="noreferrer">открыть канал</a></div></article>
-        </div>
-        <footer><span>вишлист — 2026</span><a href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a></footer>
-      </section>
+        <footer class="site-footer">
+          <span class="abs" style="--x:75;--y:11405">вишлист - 2026</span>
+          <a class="abs" style="--x:1286;--y:11418" href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a>
+        </footer>
+      </div>
     </main>
     <div class="toast" role="status" aria-live="polite"></div>
     <script src="app.js"></script>
