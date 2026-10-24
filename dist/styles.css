@@ -104,7 +104,8 @@ a{color:inherit}
 
 @media (min-width:1100px){
   body,.page{background:#fff url("assets/paper.webp") center top/100vw auto repeat-y}
-  .page{container-type:inline-size;max-width:1920px;padding:0;overflow:visible}
+  /* --scale уменьшает весь макет; не уже 1100px, чтобы мелкий текст оставался читаемым. */
+  .page{--scale:.7;container-type:inline-size;width:max(calc(100% * var(--scale)),min(100%,1100px));max-width:calc(1920px * var(--scale));padding:0;overflow:visible}
   .stage{--u:calc(100cqw / 1440);position:relative;height:calc(11458 * var(--u))}
   .hero,.about,.rules,.gifts,.fallback,.contacts{display:block;margin:0;padding:0}
   .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc(var(--y) * var(--u));margin:0}
