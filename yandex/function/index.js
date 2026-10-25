@@ -1,11 +1,11 @@
-// Брони для версии сайта в Yandex Cloud — та же логика, что в functions/api/reservations.js (Cloudflare),
-// только база — YDB. Функция вызывается напрямую по https://functions.yandexcloud.net/<id> с другого
-// домена (сайт лежит в Object Storage), поэтому сама отвечает на CORS.
+// Общие брони для обеих копий сайта (forlia.pages.dev и forlia.website.yandexcloud.net) — та же логика,
+// что в functions/api/reservations.js (Cloudflare), только база — YDB. Функция вызывается напрямую по
+// https://functions.yandexcloud.net/<id> с доменов сайта, поэтому сама отвечает на CORS.
 const { Driver, TokenAuthService, TypedValues, TypedData, withRetries, RetryParameters } = require('ydb-sdk');
 
 const MAX_PER_GUEST = 2;
 const MAX_GIFT_ID = 99;
-const ORIGINS = ['https://forlia.website.yandexcloud.net', 'http://localhost:8788'];
+const ORIGINS = ['https://forlia.website.yandexcloud.net', 'https://forlia.pages.dev', 'http://localhost:8788'];
 
 // В базу ходим IAM-токеном сервисного аккаунта функции: облако передаёт свежий токен в каждый вызов
 // (context.token), и handler подставляет его сюда. Локально — токен из YDB_ACCESS_TOKEN_CREDENTIALS.
