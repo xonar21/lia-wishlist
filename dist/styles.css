@@ -89,15 +89,19 @@ a{color:inherit}
 .site-footer{display:flex;justify-content:space-between;margin-top:60px}
 .site-footer a{text-decoration:none}
 
-/* Фоны на пробу: ?bg=1 … ?bg=4 в адресе (скрипт в <head> ставит html[data-bg]).
+/* Фоны на пробу: ?bg=1 … ?bg=4 в адресе, прозрачность — &op=0…100 (скрипт в <head> ставит
+   html[data-bg] и --bg-op). Фон лежит отдельным слоем под страницей, под ним белый — как слой в Figma.
    Штукатурка и вельвет — крупные пятна, растянутые на ширину, и поверх мелкая фактура в родном разрешении.
    Фото подарков на них лежат на подложке цвета бумаги из макета, чтобы multiply не смешивал их с фоном. */
+html[data-bg]{background:#fff}
 html[data-bg] body,html[data-bg] .page{background:none}
-html[data-bg="1"]{background:url("assets/bg/plaster-grain.webp") 0 0/450px auto,url("assets/bg/plaster.webp") center top/100% auto repeat-y,#b0b09a;background-blend-mode:overlay,normal}
-html[data-bg="2"]{background:#d6c7b4 url("assets/bg/stars-beige.svg") 0 0/668px auto}
+html[data-bg] body{position:relative}
+html[data-bg] body::before{content:"";position:absolute;inset:0;z-index:-1;opacity:var(--bg-op,1);pointer-events:none}
+html[data-bg="1"] body::before{background:url("assets/bg/plaster-grain.webp") 0 0/450px auto,url("assets/bg/plaster.webp") center top/100% auto repeat-y,#b0b09a;background-blend-mode:overlay,normal}
+html[data-bg="2"] body::before{background:#d6c7b4 url("assets/bg/stars-beige.svg") 0 0/668px auto}
 /* на телефоне в кадр попадает одно созвездие из плитки, на десктопе — оба */
-html[data-bg="3"]{background:#f7f8f3 url("assets/bg/stars-white.svg") 75% top/900px auto}
-html[data-bg="4"]{background:url("assets/bg/velvet-grain.webp") 0 0/198px auto,url("assets/bg/velvet.webp") center top/100% auto repeat-y,#c6cb95;background-blend-mode:overlay,normal}
+html[data-bg="3"] body::before{background:#f7f8f3 url("assets/bg/stars-white.svg") 75% top/900px auto}
+html[data-bg="4"] body::before{background:url("assets/bg/velvet-grain.webp") 0 0/198px auto,url("assets/bg/velvet.webp") center top/100% auto repeat-y,#c6cb95;background-blend-mode:overlay,normal}
 html[data-bg] .gift-photo{background:#ede4d6 content-box}
 
 .toast{position:fixed;left:50%;bottom:24px;z-index:3;padding:11px 18px;border-radius:100px;background:var(--dark);color:var(--cream);font-size:12px;opacity:0;transform:translate(-50%,100px);transition:.25s;pointer-events:none}
@@ -116,7 +120,7 @@ html[data-bg] .gift-photo{background:#ede4d6 content-box}
 
 @media (min-width:1100px){
   body,.page{background:#fff url("assets/paper.webp") center top/100vw auto repeat-y}
-  html[data-bg="3"]{background-position:center top;background-size:1500px auto}
+  html[data-bg="3"] body::before{background-position:center top;background-size:1500px auto}
   /* --scale уменьшает весь макет; не уже 1100px, чтобы мелкий текст оставался читаемым. */
   .page{--scale:.7;container-type:inline-size;width:max(calc(100% * var(--scale)),min(100%,1100px));max-width:calc(1920px * var(--scale));padding:0;overflow:visible}
   /* --dy — сдвиг секции по вертикали относительно макета (после правок блоки стали другой высоты) */
