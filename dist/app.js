@@ -31,7 +31,10 @@ function guestToken(){try{let t=localStorage.getItem(tokenKey);if(!t){t=crypto.r
 let selected = new Set();
 let others = new Set();
 let busy = false;
-async function api(method,id){try{const res=await fetch('/api/reservations',{method,headers:{'x-guest-token':guestToken(),'content-type':'application/json'},body:id===undefined?undefined:JSON.stringify({id})});return{ok:res.ok,data:await res.json().catch(()=>({}))}}catch{return{ok:false,data:{}}}}
+// На Яндексе сайт лежит в Object Storage, а брони — отдельная функция (yandex/function); на Cloudflare API рядом с сайтом.
+const apiUrl = location.hostname.endsWith('.yandexcloud.net') ? 'https://functions.yandexcloud.net/d4e7cj924hm5bo1cl0pk' : '/api/reservations';
+// Тайм-аут: зависший запрос иначе держит busy, и все кнопки перестают реагировать.
+async function api(method,id){try{const res=await fetch(apiUrl,{method,headers:{'x-guest-token':guestToken(),'content-type':'application/json'},body:id===undefined?undefined:JSON.stringify({id}),signal:AbortSignal.timeout?.(15000)});return{ok:res.ok,data:await res.json().catch(()=>({}))}}catch{return{ok:false,data:{}}}}
 function sync(data){if(Array.isArray(data.mine)&&Array.isArray(data.others)){selected=new Set(data.mine);others=new Set(data.others)}}
 async function refresh(){if(busy)return;const {ok,data}=await api('GET');if(ok){sync(data);render()}}
 function notify(message){toast.textContent=message;toast.classList.add('is-visible');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.remove('is-visible'),2800)}
