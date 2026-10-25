@@ -102,11 +102,10 @@ html[data-bg="2"] body::before{background:#d6c7b4 url("assets/bg/stars-beige.svg
 /* на телефоне в кадр попадает одно созвездие из плитки, на десктопе — оба */
 html[data-bg="3"] body::before{background:#f7f8f3 url("assets/bg/stars-white.svg") 75% top/900px auto}
 html[data-bg="4"] body::before{background:url("assets/bg/velvet-grain.webp") 0 0/198px auto,url("assets/bg/velvet.webp") center top/100% auto repeat-y,#c6cb95;background-blend-mode:overlay,normal}
-/* Тени листьев — одна композиция на экран: слой неподвижен, страница прокручивается поверх, как по стене.
-   lvh — высота экрана со спрятанной адресной строкой, чтобы на телефоне фон не прыгал при прокрутке. */
-html[data-bg="5"] body::before,html[data-bg="6"] body::before{position:fixed;inset:0 0 auto;height:100vh;height:100lvh}
-html[data-bg="5"] body::before{background:url("assets/bg/leaf-pink-grain.webp") 0 0/192px auto,url("assets/bg/leaf-pink.webp") 50% 30%/cover,#d1ab9a;background-blend-mode:overlay,normal}
-html[data-bg="6"] body::before{background:url("assets/bg/leaf-dark-grain.webp") 0 0/144px auto,url("assets/bg/leaf-dark.webp") 50% 30%/cover,#7a5c52;background-blend-mode:overlay,normal}
+/* Тени листьев — бесшовная высокая плитка, собранная из копий фото (bg/build3.py): листья едут вместе
+   со страницей. На телефоне плитка шириной 1000px (листья как на исходном фото), на десктопе — во всю ширину. */
+html[data-bg="5"] body::before{background:url("assets/bg/leaf-pink-grain.webp") 0 0/192px auto,url("assets/bg/leaf-pink.webp") center top/1000px auto,#d2ac9a;background-blend-mode:overlay,normal}
+html[data-bg="6"] body::before{background:url("assets/bg/leaf-dark-grain.webp") 0 0/144px auto,url("assets/bg/leaf-dark.webp") center top/1000px auto,#795b51;background-blend-mode:overlay,normal}
 html[data-bg="7"] body::before{background:#f0e7db url("assets/bg/kiss.webp") 0 0/643px auto}
 html[data-bg] .gift-photo{background:#ede4d6 content-box}
 /* светлые текст и линии для тёмного фона (data-ink ставит скрипт в <head>) */
@@ -134,6 +133,8 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   body,.page{background:#fff url("assets/paper.webp") center top/100vw auto repeat-y}
   html[data-bg="3"] body::before{background-position:center top;background-size:1500px auto}
   html[data-bg="7"] body::before{background-size:858px auto}
+  html[data-bg="5"] body::before{background-size:192px auto,100% auto}
+  html[data-bg="6"] body::before{background-size:144px auto,100% auto}
   /* средние подписи «как это работает» лежат на светлом небе фото канала — им оставляем тёмный фиолетовый */
   html[data-ink="light"] .notes li:nth-child(2),html[data-ink="light"] .notes li:nth-child(3){color:#491faf}
   /* --scale уменьшает весь макет; не уже 1100px, чтобы мелкий текст оставался читаемым. */
