@@ -76,13 +76,14 @@ a{color:inherit}
 .bank-card::before,.bank-card::after{content:"";position:absolute;inset:0}
 .bank-card::before{background:url("assets/card.webp") 69.75% 0/127.74% 100.07% no-repeat}
 .bank-card::after{background:#eee7dd;mix-blend-mode:multiply}
-.bank-card>.abs{position:absolute;z-index:1;left:calc(var(--x) * var(--c));top:calc(var(--y) * var(--c));font-weight:600;font-size:calc(10 * var(--c));letter-spacing:.16em;white-space:pre}
+.bank-card>.abs{position:absolute;z-index:1;left:calc(var(--x) * var(--c));top:calc(var(--y) * var(--c));font-weight:600;font-size:calc(13 * var(--c));letter-spacing:.16em;white-space:pre}
+.bank-card>.bank-system{transform:translateX(-100%)}
 .bank-card>.bank-number{font-weight:500;font-size:calc(20 * var(--c));letter-spacing:.08em}
 .bank-card>.bank-holder{font-size:calc(16 * var(--c))}
 .box-button{display:block;padding:10px 8px;border:.5px solid var(--ink);background:transparent;color:var(--ink);font:400 11px/1.366 Manrope,Arial,sans-serif;letter-spacing:.04em;text-align:center;text-decoration:none;cursor:pointer}
 .bank-copy{width:100%;max-width:347px;margin-top:4px}
-.tg-handle{font-size:34px;font-weight:500;letter-spacing:.1em;text-decoration:none}
-.tg-channel{font-size:28px;font-weight:500;letter-spacing:.1em}
+.tg-handle{font-size:26px;font-weight:500;letter-spacing:.1em;text-decoration:none}
+.tg-channel{font-size:21px;font-weight:500;letter-spacing:.1em}
 .tg-buttons{display:flex;gap:12px;margin-top:12px}
 .tg-button{flex:1}
 .site-footer{display:flex;justify-content:space-between;margin-top:60px}
@@ -106,42 +107,60 @@ a{color:inherit}
   body,.page{background:#fff url("assets/paper.webp") center top/100vw auto repeat-y}
   /* --scale уменьшает весь макет; не уже 1100px, чтобы мелкий текст оставался читаемым. */
   .page{--scale:.7;container-type:inline-size;width:max(calc(100% * var(--scale)),min(100%,1100px));max-width:calc(1920px * var(--scale));padding:0;overflow:visible}
-  .stage{--u:calc(100cqw / 1440);position:relative;height:calc(11458 * var(--u))}
+  /* --dy — сдвиг секции по вертикали относительно макета (после правок блоки стали другой высоты) */
+  .stage{--u:calc(100cqw / 1440);--dy:0;position:relative;height:calc(11246 * var(--u))}
   .hero,.about,.rules,.gifts,.fallback,.contacts{display:block;margin:0;padding:0}
-  .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc(var(--y) * var(--u));margin:0}
+  .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc((var(--y) + var(--dy)) * var(--u));margin:0}
+  .anchor-end{text-align:right;white-space:nowrap;transform:translateX(-100%)}
+  .gifts{--dy:108}
+  .fallback,.contacts,.site-footer{--dy:-212}
+  .box>*{--dy:0}
 
   .hero-name,.hero-tag,.hero-city,.hero-date,.kicker,.site-footer{font-size:calc(16 * var(--u));white-space:pre}
   .hero-photo{width:calc(1308 * var(--u));height:calc(541 * var(--u))}
   .title{font-size:calc(36 * var(--u));line-height:1.361;white-space:nowrap}
 
-  .about-text{width:calc(852 * var(--u));font-size:calc(20 * var(--u))}
-  .about-text span{padding-left:calc(var(--i) * var(--u));white-space:nowrap}
+  /* --f уменьшает текст «о списке» вместе с отступами лесенки, центр блока остаётся на 720 */
+  .about-text{--f:.85;left:calc((720 - 426 * var(--f)) * var(--u));width:calc(852 * var(--f) * var(--u));font-size:calc(20 * var(--f) * var(--u))}
+  .about-text span{padding-left:calc(var(--i) * var(--f) * var(--u));white-space:nowrap}
   .stamp{width:calc(180.3 * var(--u));height:calc(163.7 * var(--u))}
 
+  /* Блок «как это работает» целиком увеличен в --k раз относительно точки (--ox, --oy) макета
+     и поднят на --shift вслед за укоротившимся текстом «о списке». */
+  .rules{--k:1.5;--ox:720;--oy:2772;--shift:-162;position:absolute;width:100%;left:calc(var(--ox) * (1 - var(--k)) * var(--u));top:calc((var(--oy) * (1 - var(--k)) + var(--shift)) * var(--u))}
+  .rules>*{--u:calc(100cqw / 1440 * var(--k))}
   .rules-bike{width:calc(306 * var(--u));height:calc(153 * var(--u))}
-  .rules-hint{text-align:left}
-  .rules-hint span{font-size:max(calc(8 * var(--u)),7px)}
+  .rules-hint{text-align:left;white-space:nowrap}
+  .rules-hint span{font-size:max(calc(6.5 * var(--u)),7px)}
   .rules-hint b{font-size:max(calc(10 * var(--u)),8.5px)}
   .rules-canal{width:calc(306 * var(--u));height:calc(306 * var(--u))}
   .notes{display:block;max-width:none;text-align:left}
   .notes li{display:contents}
   .note{font-size:max(calc(8 * var(--u)),7px);line-height:1.375;white-space:pre}
-  .note-end{text-align:right;transform:translateX(-100%)}
-  .rules-help{max-width:none;font-size:max(calc(10 * var(--u)),8.5px);line-height:1;letter-spacing:-.03em;white-space:pre;transform:translateX(-50%)}
+  .rules-help{max-width:none;font-size:max(calc(10 * var(--u)),8.5px);line-height:1;letter-spacing:.06em;white-space:pre;transform:translateX(-50%)}
 
   .gift-list{display:block;margin:0}
   .gift{display:contents}
-  .gift-num{position:absolute;left:calc((var(--ix) + var(--is) / 2) * var(--u));top:calc((var(--iy) - 22) * var(--u));margin:0;font-size:calc(12 * var(--u));transform:translateX(-50%)}
-  .gift-photo{position:absolute;left:calc(var(--ix) * var(--u));top:calc(var(--iy) * var(--u));width:calc(var(--is) * var(--u));height:calc(var(--is) * var(--u));padding:calc(var(--is) * .025 * var(--u))}
-  .gift-info{position:absolute;left:calc(var(--tx) * var(--u));top:calc(var(--ty) * var(--u));width:calc(var(--tw) * var(--u));margin:0;align-items:flex-start;text-align:left}
-  .gift-info h3{font-size:calc(16 * var(--u))}
-  .gift-desc{width:calc(var(--dw) * var(--u));margin-top:calc(4 * var(--u));font-size:max(calc(10 * var(--u)),8.5px);white-space:pre-line}
-  .gift-meta{width:calc(274 * var(--u));margin-top:calc(11 * var(--u));font-size:max(calc(12 * var(--u)),10px)}
-  .reserve{width:calc(276 * var(--u));margin-top:calc(11 * var(--u));padding:calc(8 * var(--u));font-size:max(calc(10 * var(--u)),8.5px)}
-  .gift--r .gift-info{align-items:flex-end;text-align:right}
-  .gift--c .gift-info{align-items:center;text-align:center}
-  .gift--r .gift-meta,.gift--c .gift-meta,.gift--r .reserve{width:calc(219 * var(--u))}
-  .gift--c .reserve{width:calc(278 * var(--u))}
+  /* Текст карточки ставится от фото с одинаковым отступом --gap. --lead — расстояние от верха строки
+     заголовка до верха строчных букв: по фото выравниваются сами буквы, а не строка. */
+  .gift{--gap:20;--lead:8.7}
+  .gift-num{position:absolute;left:calc((var(--ix) + var(--is) / 2) * var(--u));top:calc((var(--iy) + var(--dy) - 22) * var(--u));margin:0;font-size:calc(13 * var(--u));transform:translateX(-50%)}
+  .gift-photo{position:absolute;left:calc(var(--ix) * var(--u));top:calc((var(--iy) + var(--dy)) * var(--u));width:calc(var(--is) * var(--u));height:calc(var(--is) * var(--u));padding:calc(var(--is) * .025 * var(--u))}
+  .gift-info{position:absolute;width:calc(var(--tw) * var(--u));margin:0;align-items:flex-start;text-align:left}
+  .gift-info h3{font-size:calc(17 * var(--u))}
+  .gift-desc{width:calc(var(--dw) * var(--u));margin-top:calc(4 * var(--u));font-size:max(calc(11 * var(--u)),9.5px);white-space:pre-line}
+  .gift-meta{width:calc(274 * var(--u));margin-top:calc(11 * var(--u));font-size:max(calc(13 * var(--u)),11px)}
+  .reserve{width:calc(276 * var(--u));margin-top:calc(11 * var(--u));padding:calc(8 * var(--u));font-size:max(calc(11 * var(--u)),9.5px)}
+  .gift--right .gift-info{left:calc((var(--ix) + var(--is) + var(--gap)) * var(--u))}
+  .gift--left .gift-info{left:calc((var(--ix) - var(--gap) - var(--tw)) * var(--u))}
+  .gift--top .gift-info{top:calc((var(--iy) + var(--dy) - var(--lead)) * var(--u))}
+  .gift--bottom .gift-info{top:calc((var(--iy) + var(--dy) + var(--is)) * var(--u));transform:translateY(-100%)}
+  .gift--below .gift-info{top:calc((var(--iy) + var(--dy) + var(--is) + var(--gap) - var(--lead)) * var(--u))}
+  .gift--center .gift-info{left:calc((var(--ix) + (var(--is) - var(--tw)) / 2) * var(--u));align-items:center;text-align:center}
+  .gift--end .gift-info{left:calc((var(--ix) + var(--is) - var(--tw)) * var(--u))}
+  .gift--left .gift-info,.gift--end .gift-info{align-items:flex-end;text-align:right}
+  .gift--left .gift-meta,.gift--left .reserve,.gift--below .gift-meta,.gift--end .reserve{width:calc(219 * var(--u))}
+  .gift--center .reserve{width:calc(278 * var(--u))}
 
   .fallback-text{width:calc(978 * var(--u));font-size:calc(18 * var(--u));white-space:pre;transform:translateX(-50%)}
   .fallback-dog{width:calc(158 * var(--u));height:calc(152 * var(--u))}
@@ -157,8 +176,8 @@ a{color:inherit}
   .bank-card{width:calc(347 * var(--u));max-width:none}
   .box-button{padding:calc(10 * var(--u)) calc(8 * var(--u));font-size:max(calc(10 * var(--u)),8.5px)}
   .bank-copy{width:calc(347 * var(--u));max-width:none}
-  .tg-handle{font-size:calc(40 * var(--u));white-space:nowrap}
-  .tg-channel{font-size:calc(32 * var(--u));white-space:nowrap}
+  .tg-handle{font-size:calc(30 * var(--u));white-space:nowrap}
+  .tg-channel{font-size:calc(24 * var(--u));white-space:nowrap}
   .tg-about{width:calc(308 * var(--u));font-size:calc(14 * var(--u));line-height:1.357;white-space:pre-line}
   .tg-buttons{display:block;margin:0}
   .tg-button{width:calc(155 * var(--u))}
