@@ -37,17 +37,28 @@ const apiUrl = location.hostname === 'localhost' ? '/api/reservations' : 'https:
 // Тайм-аут: зависший запрос иначе держит busy, и все кнопки перестают реагировать.
 async function api(method,id){try{const res=await fetch(apiUrl,{method,headers:{'x-guest-token':guestToken(),'content-type':'application/json'},body:id===undefined?undefined:JSON.stringify({id}),signal:AbortSignal.timeout?.(15000)});return{ok:res.ok,data:await res.json().catch(()=>({}))}}catch{return{ok:false,data:{}}}}
 function sync(data){if(Array.isArray(data.mine)&&Array.isArray(data.others)){selected=new Set(data.mine);others=new Set(data.others)}}
-async function refresh(){if(busy)return;const {ok,data}=await api('GET');if(ok){sync(data);render()}}
-function notify(message){toast.textContent=message;toast.classList.add('is-visible');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.remove('is-visible'),2800)}
-function render(){grid.innerHTML=gifts.map(({id,n,name,desc,price,img,text,tw,dw,row})=>{const own=selected.has(id);const unavailable=!own&&others.has(id);const status=unavailable?'уже кто-то подарит':own?'ты даришь · отменить':'подарю это';return `<article class="gift ${text.split(' ').map(c=>'gift--'+c).join(' ')}"${row?` data-row="${row}"`:''} style="--ix:${img[0]};--iy:${img[1]};--is:${img[2]};--tw:${tw};--dw:${dw||tw}"><p class="gift-num">(${n})</p><div class="gift-photo"><img src="assets/gift.webp" alt="${name}" decoding="async"></div><div class="gift-info"><h3>${name}</h3><p class="gift-desc">${desc}</p><div class="gift-meta"><span>${price}</span><a href="#contacts">link</a></div><button class="reserve${own?' is-own':''}" type="button" data-id="${id}" ${unavailable?'disabled':''}>${status}</button></div></article>`}).join('');alignRows()}
+function notify(message,ms=2800){toast.textContent=message;toast.classList.add('is-visible');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.remove('is-visible'),ms)}
+// Карточки строятся один раз; дальше при каждом опросе меняются только кнопки, фото и вёрстка не перерисовываются.
+function render(){grid.innerHTML=gifts.map(({id,n,name,desc,price,img,text,tw,dw,row})=>`<article class="gift ${text.split(' ').map(c=>'gift--'+c).join(' ')}"${row?` data-row="${row}"`:''} style="--ix:${img[0]};--iy:${img[1]};--is:${img[2]};--tw:${tw};--dw:${dw||tw}"><p class="gift-num">(${n})</p><div class="gift-photo"><img src="assets/gift.webp" alt="${name}" decoding="async"></div><div class="gift-info"><h3>${name}</h3><p class="gift-desc">${desc}</p><div class="gift-meta"><span>${price}</span><a href="#contacts">link</a></div><button class="reserve" type="button" data-id="${id}">подарю это</button></div></article>`).join('');alignRows()}
+function flash(button){button.classList.remove('is-changed');void button.offsetWidth;button.classList.add('is-changed')}
+// changed — подсветить кнопки, которые изменились не по нажатию этого гостя (кто-то занял или освободил подарок).
+function update(changed){grid.querySelectorAll('.reserve').forEach(b=>{const id=Number(b.dataset.id),own=selected.has(id),taken=!own&&others.has(id),status=taken?'уже кто-то подарит':own?'ты даришь · отменить':'подарю это';if(b.textContent===status)return;b.textContent=status;b.disabled=taken;b.classList.toggle('is-own',own);if(changed)flash(b)})}
+// Почти живые обновления: пока страницу смотрят, брони запрашиваются раз в 4 секунды; если её не трогали 2 минуты —
+// раз в 20 секунд, 30 минут — опрос встаёт до первого касания; в фоновой вкладке не запрашиваются вовсе.
+// epoch отбрасывает ответ опроса, ушедшего до нажатия, — иначе он на секунду вернул бы на экран старое состояние.
+let epoch=0,polling=false,loaded=false,timer,lastActive=Date.now();
+async function refresh(){if(busy||polling)return;polling=true;const e=epoch;const {ok,data}=await api('GET');polling=false;if(ok&&e===epoch&&!busy){sync(data);update(loaded);loaded=true}}
+function schedule(){clearTimeout(timer);const idle=Date.now()-lastActive;if(!document.hidden&&idle<1800000)timer=setTimeout(async()=>{await refresh();schedule()},idle<120000?4000:20000)}
+['pointerdown','pointermove','keydown','scroll','touchstart'].forEach(type=>addEventListener(type,()=>{const wasIdle=Date.now()-lastActive>120000;lastActive=Date.now();if(wasIdle){refresh();schedule()}},{passive:true}));
 // На десктопе описания в одном ряду тянем до самого длинного, чтобы кнопки встали на одну линию.
 const desktop=matchMedia('(min-width:1100px)');
 function alignRows(){const rows={};grid.querySelectorAll('[data-row] .gift-desc').forEach(d=>{d.style.minHeight='';(rows[d.closest('[data-row]').dataset.row]??=[]).push(d)});if(!desktop.matches)return;Object.values(rows).forEach(descs=>{const h=Math.max(...descs.map(d=>d.offsetHeight));descs.forEach(d=>d.style.minHeight=h+'px')})}
 addEventListener('resize',alignRows);
 document.fonts.ready.then(alignRows);
-grid.addEventListener('click',async(event)=>{const button=event.target.closest('.reserve');if(!button||button.disabled||busy)return;const id=Number(button.dataset.id);const cancel=selected.has(id);busy=true;const {ok,data}=await api(cancel?'DELETE':'POST',id);busy=false;sync(data);if(ok)notify(cancel?'бронь отменена':'подарок забронирован ♡');else if(data.error==='limit')notify('можно выбрать не больше двух подарков');else if(data.error==='taken')notify('этот подарок уже забронировал кто-то другой');else notify('не получилось, попробуй ещё раз');render()});
+// Двойную бронь не допускает сервер (проверка и запись — одной транзакцией); здесь — понятное сообщение тому, кто не успел.
+grid.addEventListener('click',async(event)=>{const button=event.target.closest('.reserve');if(!button||button.disabled||busy)return;const id=Number(button.dataset.id);const cancel=selected.has(id);busy=true;epoch++;const {ok,data}=await api(cancel?'DELETE':'POST',id);busy=false;sync(data);update(false);if(ok)notify(cancel?'бронь отменена':'подарок забронирован ♡');else if(data.error==='taken'){flash(button);notify('кто-то выбрал этот подарок чуть раньше тебя — он уже занят. посмотри другие ♡',5000)}else if(data.error==='limit')notify('можно выбрать не больше двух подарков — чтобы взять этот, отмени один из своих',5000);else notify('не получилось связаться с сайтом — проверь интернет и попробуй ещё раз',5000)});
 document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(button.dataset.copy);notify('номер карты скопирован')}catch{notify('не удалось скопировать номер')}}));
 render();
 refresh();
-setInterval(refresh,30000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+schedule();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){refresh();schedule()}});
