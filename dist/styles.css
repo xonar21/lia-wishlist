@@ -47,6 +47,8 @@ a{color:inherit}
 .gift-info{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;margin-top:12px}
 .gift-info h3{width:100%;font-size:15px;font-weight:400;line-height:1.375;letter-spacing:.01em}
 .gift-desc{flex:1;width:100%;margin-top:4px;font-size:11px;font-weight:200;line-height:1.4}
+/* практическая приписка (цена с картой, доставка) — отдельной строкой внутри описания, чтобы ряды выравнивались вместе с ней */
+.gift-note{display:block;margin-top:.5em;font-weight:400}
 .gift-meta{display:flex;justify-content:space-between;width:100%;margin-top:10px;font-size:12px;letter-spacing:.01em;white-space:nowrap}
 .gift-meta>*{letter-spacing:inherit}
 .gift-meta a{font-weight:200}
@@ -144,12 +146,12 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   /* --scale уменьшает весь макет; не уже 1100px, чтобы мелкий текст оставался читаемым. */
   .page{--scale:.7;container-type:inline-size;width:max(calc(100% * var(--scale)),min(100%,1100px));max-width:calc(1920px * var(--scale));padding:0;overflow:visible}
   /* --dy — сдвиг секции по вертикали относительно макета (после правок блоки стали другой высоты) */
-  .stage{--u:calc(100cqw / 1440);--dy:0;position:relative;height:calc(11246 * var(--u))}
+  .stage{--u:calc(100cqw / 1440);--dy:0;position:relative;height:calc(10905 * var(--u))}
   .hero,.about,.rules,.gifts,.fallback,.contacts{display:block;margin:0;padding:0}
   .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc((var(--y) + var(--dy)) * var(--u));margin:0}
   .anchor-end{text-align:right;white-space:nowrap;transform:translateX(-100%)}
   .gifts{--dy:108}
-  .fallback,.contacts,.site-footer{--dy:-212}
+  .fallback,.contacts,.site-footer{--dy:-553}
   .box>*{--dy:0}
 
   .hero-name,.hero-tag,.hero-city,.hero-date,.kicker,.site-footer{font-size:calc(16 * var(--u));white-space:pre}
