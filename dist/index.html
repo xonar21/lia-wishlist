@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
-    <!-- ?bg=1…7 — фон на пробу, &op=0…100 — его непрозрачность в процентах (можно и 0…1);
+    <!-- ?bg=1…8 — фон на пробу, &op=0…100 — его непрозрачность в процентах (можно и 0…1);
          на тёмном фоне 6 от 85% текст становится светлым -->
-    <script>try{const q=new URLSearchParams(location.search),bg=q.get('bg'),d=document.documentElement;let op=parseFloat(q.get('op'));if(op>1)op/=100;if(/^[1-7]$/.test(bg)){d.dataset.bg=bg;if(op>=0)d.style.setProperty('--bg-op',Math.min(op,1));if(bg==6&&!(op<.85))d.dataset.ink='light'}}catch{}</script>
+    <script>try{const q=new URLSearchParams(location.search),bg=q.get('bg'),d=document.documentElement;let op=parseFloat(q.get('op'));if(op>1)op/=100;if(/^[1-8]$/.test(bg)){d.dataset.bg=bg;if(op>=0)d.style.setProperty('--bg-op',Math.min(op,1));if(bg==6&&!(op<.85))d.dataset.ink='light'}}catch{}</script>
     <link rel="preload" as="image" href="assets/paper.webp" />
     <link rel="stylesheet" href="styles.css" />
   </head>
