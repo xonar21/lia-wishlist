@@ -41,9 +41,9 @@ a{color:inherit}
 .gift{display:flex;flex-direction:column;align-items:center;text-align:center}
 .gift-num{margin-bottom:6px;font-size:12px;letter-spacing:.01em}
 .gift-photo{width:100%;aspect-ratio:1;padding:2.5%;border:.7px solid var(--ink);overflow:hidden}
-/* в макете фото подарков наложены режимом linear burn; assets/gift.webp заранее подготовлен так,
-   что multiply поверх бумаги даёт тот же результат (linear burn в CSS есть только в Safari) */
-.gift-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 39.3%;mix-blend-mode:multiply}
+/* в макете фото подарков наложены режимом linear burn; фото в assets/gifts/ заранее подготовлены
+   (tools/gift-photos.py) так, что multiply поверх бумаги даёт тот же результат (linear burn в CSS есть только в Safari) */
+.gift-photo img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 .gift-info{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;margin-top:12px}
 .gift-info h3{width:100%;font-size:15px;font-weight:400;line-height:1.375;letter-spacing:.01em}
 .gift-desc{flex:1;width:100%;margin-top:4px;font-size:11px;font-weight:200;line-height:1.4}
