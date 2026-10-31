@@ -17,7 +17,7 @@
          &op=0…100 — непрозрачность фона в процентах (светлее), &dark=0…80 — на сколько процентов фон темнее.
          На тёмном фоне 6 от 85% и на холсте от dark=50 текст становится светлым. -->
     <script>try{const q=new URLSearchParams(location.search),d=document.documentElement,bg=q.get('bg')??'8',num=k=>{let v=parseFloat(q.get(k));return v>1?v/100:v};const op=num('op'),dark=Math.min(num('dark'),.8);if(/^[1-8]$/.test(bg)){d.dataset.bg=bg;if(op>=0)d.style.setProperty('--bg-op',Math.min(op,1));if(dark>0){const v=Math.round(255*(1-dark));d.style.setProperty('--bg-shade',`rgb(${v} ${v} ${v})`)}if(bg==6&&!(op<.85)||bg==8&&dark>=.5)d.dataset.ink='light'}}catch{}</script>
-    <link rel="preload" as="image" href="assets/bg/canvas.webp" />
+    <link rel="preload" as="image" href="assets/bg/canvas.webp?v=3" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
