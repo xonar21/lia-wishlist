@@ -1,7 +1,7 @@
 # Фон ?bg=8 — живописный холст (персик и цветок). Запуск (нужны numpy, scipy, pillow):
 #   python3 tools/bg/canvas.py <исходник.jpg> dist/assets/bg
 # Как штукатурка и вельвет, фон делится на два слоя, которые в CSS складываются режимом overlay:
-#   canvas.webp       — мягкие пятна краски без фактуры, в половинном разрешении (их можно растягивать).
+#   canvas.webp       — мягкие пятна краски без фактуры в полном разрешении исходника.
 #                       По раскладке заказчицы друг под другом идут четыре варианта картины: как есть,
 #                       отражённая по вертикали, по горизонтали и в обе стороны. Персик встречается со своим
 #                       отражением — там стык сходится сам; цветок — с зеркальным цветком, там варианты
@@ -10,8 +10,11 @@
 #                       по бокам — чистый холст: у краёв краска неровно и мягко растворяется в нём, как
 #                       разбавленная акварель (граница — шум нескольких масштабов, от разводов до зерна). Граница и пятна на холсте
 #                       тоже периодичны по вертикали, так что повтор ленты по-прежнему без шва;
-#   canvas-weave.webp — фактура холста в полном разрешении, бесшовная плитка: края сшиты по линии
-#                       наименьшего отличия (min-cut), так что нитки на стыке просто продолжаются.
+#   canvas-weave.webp — фактура холста, бесшовная плитка: края сшиты по линии наименьшего отличия
+#                       (min-cut), так что нитки на стыке просто продолжаются. Плитка увеличена в UP раз
+#                       (Lanczos по кругу плитки + мягкая резкость): браузер её только уменьшает, и нитки
+#                       остаются чёткими. Нейросетевой апскейл (Real-ESRGAN) пробовали — он превращает
+#                       плетение в древесные волокна.
 import os, sys
 import numpy as np
 from PIL import Image
@@ -25,6 +28,7 @@ ZOOM = .8                    # ширина картины относитель�
 BARE = (183, 167, 152)       # чистый холст — светлые незакрашенные места исходника
 WEAVE_BOX = (880, 880, 1155, 1560)    # спокойный участок холста справа от персика
 WEAVE_PERIOD = 6.45          # шаг нитей по вертикали, px (по спектру строк)
+UP = 2                       # во сколько раз увеличить плитку ниток
 
 
 def img(a):
@@ -46,7 +50,7 @@ a = np.asarray(Image.open(SRC).convert('RGB').crop(CROP)).astype(np.float64)
 low = nd.gaussian_filter(a, (SIGMA, SIGMA, 0))
 
 # --- пятна: четыре варианта подряд; стыки персик|персик — зеркальные, цветок|цветок — с перетеканием ---
-P = np.asarray(img(low).resize((a.shape[1] // 2, a.shape[0] // 2), Image.LANCZOS)).astype(np.float64)
+P = low
 h = P.shape[0]; ov = round(h * OVERLAP); T = 4 * h - 2 * ov
 up = smooth(np.arange(ov) / ov); down = up[::-1]
 blend_top = np.r_[up, np.ones(h - ov)]; blend_bottom = np.r_[np.ones(h - ov), down]
@@ -62,8 +66,9 @@ rng = np.random.default_rng(8)
 
 
 def noise(sigma):
-    # гладкий шум, периодичный по вертикали (как и лента) и нормированный к σ = 1
-    n = nd.gaussian_filter(rng.standard_normal((T, W)), sigma, mode=('wrap', 'reflect'))
+    # гладкий шум, периодичный по вертикали (как и лента) и нормированный к σ = 1;
+    # σ задана в пикселях половинного разрешения (в нём подбирался рисунок края), отсюда ×2
+    n = nd.gaussian_filter(rng.standard_normal((T, W)), 2 * sigma, mode=('wrap', 'reflect'))
     return n / n.std()
 
 
@@ -77,7 +82,7 @@ x = np.arange(W) - side; d = np.minimum(x, w - 1 - x).astype(float)[None, :]
 edge = np.maximum(.06 * w + .03 * w * (noise(55) + .5 * noise(16) + .3 * noise(4)), .02 * w)
 alpha = smooth((d - edge) / (.05 * w))
 out = canvas * (1 - alpha[..., None]) + paint * alpha[..., None]
-save(img(out), 'canvas.webp', 88)
+save(img(out), 'canvas.webp', 86)
 
 # --- нитки: высокие частоты с поправкой на ослабление в overlay, плитка без шва ---
 x0, y0, x1, y1 = WEAVE_BOX
@@ -117,6 +122,11 @@ n = int((d.shape[0] - 60) // WEAVE_PERIOD); ovy = d.shape[0] - int(round(n * WEA
 t = wrap_x(d.transpose(1, 0, 2), ovy).transpose(1, 0, 2)
 # шов по второй оси сделан на уже замкнутой по x плитке, но сам путь не замкнут — проверяем стык
 seam = np.abs(t[:, 0] - t[:, -1]).mean()
-save(img(t), 'canvas-weave.webp', 90)
+# увеличение по кругу: плитку обкладываем её же краями, чтобы Lanczos на стыках видел продолжение ниток
+from PIL import ImageFilter
+th, tw = t.shape[:2]; pad = 8
+big = img(np.pad(t, ((pad, pad), (pad, pad), (0, 0)), mode='wrap')).resize(((tw + 2 * pad) * UP, (th + 2 * pad) * UP), Image.LANCZOS)
+big = big.filter(ImageFilter.UnsharpMask(radius=1.4 * UP / 2, percent=80, threshold=0))
+save(big.crop((pad * UP, pad * UP, (tw + pad) * UP, (th + pad) * UP)), 'canvas-weave.webp', 88)
 print('base color', np.round(low.mean((0, 1))), 'weave std', hp.std().round(2), 'gain', gain.round(2),
       'tile', t.shape[1], 'x', t.shape[0], 'rows ov', ovy, 'x-edge diff', seam.round(2))

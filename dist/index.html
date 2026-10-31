@@ -3,16 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f3ece2" />
+    <meta name="theme-color" content="#b7a798" />
     <meta name="description" content="Личный вишлист Лии" />
-    <title>Лия — вишлист</title>
+    <title>лия — вишлист</title>
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
-    <!-- ?bg=1…8 — фон на пробу, &op=0…100 — его непрозрачность в процентах (можно и 0…1);
-         на тёмном фоне 6 от 85% текст становится светлым -->
-    <script>try{const q=new URLSearchParams(location.search),bg=q.get('bg'),d=document.documentElement;let op=parseFloat(q.get('op'));if(op>1)op/=100;if(/^[1-8]$/.test(bg)){d.dataset.bg=bg;if(op>=0)d.style.setProperty('--bg-op',Math.min(op,1));if(bg==6&&!(op<.85))d.dataset.ink='light'}}catch{}</script>
-    <link rel="preload" as="image" href="assets/paper.webp" />
+    <!-- Фон по умолчанию — холст (8). ?bg=1…8 — другой фон, ?bg=0 — бумага из макета;
+         &op=0…100 — непрозрачность фона в процентах (светлее), &dark=0…80 — на сколько процентов фон темнее.
+         На тёмном фоне 6 от 85% и на холсте от dark=50 текст становится светлым. -->
+    <script>try{const q=new URLSearchParams(location.search),d=document.documentElement,bg=q.get('bg')??'8',num=k=>{let v=parseFloat(q.get(k));return v>1?v/100:v};const op=num('op'),dark=Math.min(num('dark'),.8);if(/^[1-8]$/.test(bg)){d.dataset.bg=bg;if(op>=0)d.style.setProperty('--bg-op',Math.min(op,1));if(dark>0){const v=Math.round(255*(1-dark));d.style.setProperty('--bg-shade',`rgb(${v} ${v} ${v})`)}if(bg==6&&!(op<.85)||bg==8&&dark>=.5)d.dataset.ink='light'}}catch{}</script>
+    <link rel="preload" as="image" href="assets/bg/canvas.webp" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -53,8 +58,8 @@
             <span class="gap"></span>
             <span style="--i:24">я немного привереда и контролёр,</span>
             <span style="--i:48">поэтому мне спокойнее заранее знать,</span>
-            <span style="--i:38">что подарки мне</span>
-            <span style="--i:0">действительно</span>
+            <span style="--i:38">что подарки</span>
+            <span style="--i:0">мне действительно</span>
             <span style="--i:20">понравятся</span>
             <span style="--i:43">ахах.</span>
             <span style="--i:77">но сам вишлист для меня —</span>
@@ -122,47 +127,44 @@
           <p class="abs contacts-note anchor-end" style="--x:1373;--y:10874">если что-то непонятно — пишите в тг</p>
           <div class="contact-boxes">
             <article class="abs box" style="--x:65;--y:10952">
-              <h3 class="abs box-title" style="--x:25;--y:25">пункты выдачи</h3>
-              <p class="abs pickup-label" style="--x:25;--y:72">wildberries, ozon</p>
-              <p class="abs pickup-address" style="--x:25;--y:100">ул. вавиловых 9к5, санкт-петербург</p>
-              <span class="abs dots" style="--x:26;--y:137" aria-hidden="true"></span>
-              <p class="abs pickup-label" style="--x:25;--y:152">яндекс</p>
-              <p class="abs pickup-address" style="--x:25;--y:180">пр. науки 12, санкт-петербург</p>
-              <span class="abs dots" style="--x:26;--y:217" aria-hidden="true"></span>
-              <p class="abs pickup-label" style="--x:25;--y:232">сдэк, пом. 9н</p>
-              <p class="abs pickup-address" style="--x:25;--y:260">пр. науки 8к1, санкт-петербург</p>
-              <span class="abs dots" style="--x:26;--y:297" aria-hidden="true"></span>
-              <p class="abs pickup-note" style="--x:25;--y:325">получатель - юлия с., телефон или личный адрес можно узнать в личке</p>
+              <h3 class="abs box-title" style="--x:16;--y:16">пункты выдачи</h3>
+              <p class="abs pickup-label" style="--x:16;--y:46.56">wildberries, ozon</p>
+              <p class="abs pickup-address" style="--x:16;--y:70.12">ул. вавиловых 9к5, <span class="nowrap">санкт-петербург</span></p>
+              <span class="abs dots" style="--x:17;--y:108.46" aria-hidden="true"></span>
+              <p class="abs pickup-label" style="--x:16;--y:123.46">яндекс</p>
+              <p class="abs pickup-address" style="--x:16;--y:147.02">пр. науки 12, <span class="nowrap">санкт-петербург</span></p>
+              <span class="abs dots" style="--x:17;--y:185.36" aria-hidden="true"></span>
+              <p class="abs pickup-label" style="--x:16;--y:200.36">сдэк</p>
+              <p class="abs pickup-address" style="--x:16;--y:223.92">пр. науки 8к1, пом. 9н, <span class="nowrap">санкт-петербург</span></p>
+              <span class="abs dots" style="--x:17;--y:262.26" aria-hidden="true"></span>
+              <p class="abs pickup-note" style="--x:16;--y:290.26">получатель - юлия с., телефон или личный адрес можно узнать в личке</p>
             </article>
             <article class="abs box" style="--x:520;--y:10952">
-              <h3 class="abs box-title" style="--x:25;--y:25">карта для переводов</h3>
-              <div class="abs bank-card" style="--x:26;--y:79">
+              <h3 class="abs box-title" style="--x:16;--y:16">карта для переводов</h3>
+              <div class="abs bank-card" style="--x:16;--y:50.62">
                 <span class="abs bank-name" style="--x:20;--y:21">сбер</span>
                 <span class="abs bank-system" style="--x:327;--y:21">visa</span>
                 <span class="abs bank-number" style="--x:20;--y:111">4276    5400    2472    5016</span>
                 <span class="abs bank-holder" style="--x:20;--y:177">юлия с.</span>
               </div>
-              <button class="abs box-button bank-copy" style="--x:26;--y:314" type="button" data-copy="4276540024725016">скопировать номер</button>
+              <button class="abs box-button bank-copy" style="--x:16;--y:297.78" type="button" data-copy="4276540024725016">скопировать номер</button>
             </article>
             <article class="abs box" style="--x:975;--y:10952">
-              <h3 class="abs box-title" style="--x:33;--y:25">личный телеграм</h3>
-              <a class="abs tg-handle" style="--x:33;--y:52" href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a>
-              <h3 class="abs box-title" style="--x:33;--y:117">тг - канал</h3>
-              <a class="abs tg-channel" style="--x:33;--y:144" href="https://t.me/liasslv" target="_blank" rel="noreferrer">сусличья нора</a>
-              <p class="abs tg-about" style="--x:33;--y:183">чтобы вступить, нужно отправить заявку, но я там рассказываю подробно о себе
+              <h3 class="abs box-title" style="--x:16;--y:16">личный телеграм</h3>
+              <a class="abs tg-handle" style="--x:16;--y:42.49" href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a>
+              <h3 class="abs box-title" style="--x:16;--y:97.62">тг - канал</h3>
+              <a class="abs tg-channel" style="--x:16;--y:124.11" href="https://t.me/+yrScJj9-lk83YWFi" target="_blank" rel="noreferrer">сусличья нора</a>
+              <p class="abs tg-about" style="--x:16;--y:165.24">чтобы вступить, нужно отправить заявку,
+но я там рассказываю подробно о себе
 и своей любви к жизни,
 расскажу и про подарки, наверное</p>
-              <div class="tg-buttons">
-                <a class="abs box-button tg-button" style="--x:33;--y:318" href="https://t.me/liasslv" target="_blank" rel="noreferrer">личка</a>
-                <a class="abs box-button tg-button" style="--x:210;--y:318" href="https://t.me/liasslv" target="_blank" rel="noreferrer">открыть канал</a>
-              </div>
             </article>
           </div>
         </section>
 
         <footer class="site-footer">
-          <span class="abs" style="--x:65;--y:11405">вишлист - 2026</span>
-          <a class="abs anchor-end" style="--x:1373;--y:11405" href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a>
+          <span class="abs" style="--x:65;--y:11376">вишлист - 2026</span>
+          <a class="abs anchor-end" style="--x:1373;--y:11376" href="https://t.me/liasslv" target="_blank" rel="noreferrer">@liasslv</a>
         </footer>
       </div>
     </main>

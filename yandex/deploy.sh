@@ -21,6 +21,8 @@ site() {
       *.js) t='text/javascript; charset=utf-8'; c='no-cache' ;;
       *.svg) t='image/svg+xml'; c='max-age=3600' ;;
       *.webp) t='image/webp'; c='max-age=3600' ;;
+      *.png) t='image/png'; c='max-age=3600' ;;
+      *.ico) t='image/x-icon'; c='max-age=3600' ;;
       *) echo "неизвестный тип файла: $f" >&2; exit 1 ;;
     esac
     "$YC" storage s3 cp "dist/$f" "s3://$BUCKET/$f" --content-type "$t" --cache-control "$c" >/dev/null

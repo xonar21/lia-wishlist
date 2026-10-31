@@ -29,12 +29,12 @@ a{color:inherit}
 
 .rules{margin-top:90px;display:flex;flex-direction:column;align-items:center;gap:18px}
 .rules-hint{order:-1;text-align:center}
-.rules-hint span{display:block;font-size:11px;font-weight:300}
+.rules-hint span{display:block;font-size:12px;font-weight:300}
 .rules-hint b{display:block;font-weight:400;font-size:15px}
 .rules-bike{width:min(306px,100%);aspect-ratio:2;object-fit:cover;border:.7px solid var(--ink)}
 .rules-canal{width:min(306px,100%);aspect-ratio:1;object-fit:cover}
 .notes{list-style:none;padding:0;max-width:320px;display:grid;gap:10px;color:var(--violet);font-size:12px;font-weight:600;text-align:center}
-.rules-help{max-width:340px;font-size:12px;text-align:center}
+.rules-help{max-width:340px;font-size:15px;text-align:center}
 
 .gifts{margin-top:100px}
 .gift-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 14px;margin-top:40px}
@@ -45,14 +45,14 @@ a{color:inherit}
    (tools/gift-photos.py) так, что multiply поверх бумаги даёт тот же результат (linear burn в CSS есть только в Safari) */
 .gift-photo img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 .gift-info{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;margin-top:12px}
-.gift-info h3{width:100%;font-size:15px;font-weight:400;line-height:1.375;letter-spacing:.01em}
-.gift-desc{flex:1;width:100%;margin-top:4px;font-size:11px;font-weight:200;line-height:1.4}
+.gift-info h3{width:100%;font-size:16px;font-weight:400;line-height:1.375;letter-spacing:.01em}
+.gift-desc{flex:1;width:100%;margin-top:4px;font-size:12px;font-weight:200;line-height:1.4}
 /* практическая приписка (цена с картой, доставка) — отдельной строкой внутри описания, чтобы ряды выравнивались вместе с ней */
 .gift-note{display:block;margin-top:.5em;font-weight:400}
-.gift-meta{display:flex;justify-content:space-between;width:100%;margin-top:10px;font-size:12px;letter-spacing:.01em;white-space:nowrap}
+.gift-meta{display:flex;justify-content:space-between;width:100%;margin-top:10px;font-size:14px;letter-spacing:.01em;white-space:nowrap}
 .gift-meta>*{letter-spacing:inherit}
 .gift-meta a{font-weight:200}
-.reserve{width:100%;margin-top:10px;padding:9px 6px;border:.5px solid var(--ink);border-radius:100px;background:transparent;color:var(--ink);font:400 11px/1.366 Manrope,Arial,sans-serif;letter-spacing:.04em;cursor:pointer;transition:background-color .2s,color .2s}
+.reserve{width:100%;margin-top:10px;padding:9px 6px;border:.5px solid var(--ink);border-radius:100px;background:transparent;color:var(--ink);font:400 12px/1.366 Manrope,Arial,sans-serif;letter-spacing:.04em;cursor:pointer;transition:background-color .2s,color .2s}
 .reserve:not(:disabled):hover{background:rgba(40,35,32,.08)}
 .reserve.is-own{background:var(--dark);color:var(--cream)}
 .reserve.is-own:hover{background:#3d3531}
@@ -70,12 +70,14 @@ a{color:inherit}
 .contacts{margin-top:90px}
 .contacts-note{margin-top:12px}
 .contact-boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:28px}
-.box{display:flex;flex-direction:column;gap:10px;padding:24px;border:.7px solid var(--ink)}
+.box{display:flex;flex-direction:column;gap:10px;padding:16px;border:.7px solid var(--ink)}
 .box-title{font-size:14px;font-weight:400}
 .pickup-label{margin-top:14px;font-size:12px}
-.pickup-address{font-size:17px}
+/* крупный текст (адреса, ник, канал) — без разрядки, иначе самый длинный адрес не влезает в строку */
+.pickup-address{font-size:18px;letter-spacing:normal}
+.nowrap{white-space:nowrap}
 .dots{display:block;width:100%;height:1px;background:url("assets/dots.svg") left center/100% 1px no-repeat}
-.pickup-note{margin-top:24px;font-size:12px;line-height:1.333}
+.pickup-note{margin-top:24px;font-size:14px;line-height:1.333}
 /* В макете фото карты наложено в режиме multiply на бумагу. Карта — контейнер (а значит
    изолированный слой), поэтому multiply делаем внутри неё: фото × цвет бумаги под картой. */
 .bank-card{--c:calc(100cqw / 347);container-type:inline-size;position:relative;width:100%;max-width:347px;aspect-ratio:347/222;margin-top:6px;border:.5px solid var(--ink);border-radius:4px;overflow:hidden;color:#fff}
@@ -86,17 +88,14 @@ a{color:inherit}
 .bank-card>.bank-system{transform:translateX(-100%)}
 .bank-card>.bank-number{font-weight:500;font-size:calc(20 * var(--c));letter-spacing:.08em}
 .bank-card>.bank-holder{font-size:calc(16 * var(--c))}
-.box-button{display:block;padding:10px 8px;border:.5px solid var(--ink);background:transparent;color:var(--ink);font:400 11px/1.366 Manrope,Arial,sans-serif;letter-spacing:.04em;text-align:center;text-decoration:none;cursor:pointer}
+.box-button{display:block;padding:10px 8px;border:.5px solid var(--ink);background:transparent;color:var(--ink);font:400 12px/1.366 Manrope,Arial,sans-serif;letter-spacing:.04em;text-align:center;text-decoration:none;cursor:pointer}
 .bank-copy{width:100%;max-width:347px;margin-top:4px}
-.tg-handle{font-size:26px;font-weight:500;letter-spacing:.1em;text-decoration:none}
-.tg-channel{font-size:21px;font-weight:500;letter-spacing:.1em}
-.tg-buttons{display:flex;gap:12px;margin-top:12px}
-.tg-button{flex:1}
+.tg-handle,.tg-channel{align-self:flex-start;font-size:24px;font-weight:500;letter-spacing:normal}
 .site-footer{display:flex;justify-content:space-between;margin-top:60px}
 .site-footer a{text-decoration:none}
 
-/* Фоны на пробу: ?bg=1 … ?bg=8 в адресе, прозрачность — &op=0…100 (скрипт в <head> ставит
-   html[data-bg] и --bg-op). Фон лежит отдельным слоем под страницей, под ним белый — как слой в Figma.
+/* Фон по умолчанию — холст (8), другие на пробу: ?bg=1 … ?bg=7, бумага из макета — ?bg=0; прозрачность —
+   &op=0…100, затемнение холста — &dark=0…80 (скрипт в <head> ставит html[data-bg], --bg-op и --bg-shade). Фон лежит отдельным слоем под страницей, под ним белый — как слой в Figma.
    Штукатурка и вельвет — крупные пятна, растянутые на ширину, и поверх мелкая фактура в родном разрешении.
    Фото подарков на них лежат на подложке цвета бумаги из макета, чтобы multiply не смешивал их с фоном. */
 html[data-bg]{background:#fff}
@@ -114,9 +113,10 @@ html[data-bg="5"] body::before{background:url("assets/bg/leaf-pink-grain.webp") 
 html[data-bg="6"] body::before{background:url("assets/bg/leaf-dark-grain.webp") 0 0/144px auto,url("assets/bg/leaf-dark.webp") center top/1000px auto,#795b51;background-blend-mode:overlay,normal}
 html[data-bg="7"] body::before{background:#f0e7db url("assets/bg/kiss.webp") 0 0/643px auto}
 /* Холст: пятна краски — лента из четырёх отражений картины с чистым холстом по бокам (tools/bg/canvas.py),
-   поверх — нитки холста в родном размере. На десктопе картина — 80% ширины, на телефоне лента шире
-   экрана, и картина занимает почти всю ширину */
-html[data-bg="8"] body::before{background:url("assets/bg/canvas-weave.webp") 0 0/140px auto,url("assets/bg/canvas.webp") center top/115% auto repeat-y,#b7a798;background-blend-mode:overlay,normal}
+   поверх — нитки холста (плитка в двойном разрешении, браузер её только уменьшает). На десктопе картина —
+   80% ширины, на телефоне лента шире экрана, и картина занимает почти всю ширину.
+   Верхний слой — затемнение: серый цвет --bg-shade в режиме multiply (по умолчанию белый — без изменений). */
+html[data-bg="8"] body::before{background:linear-gradient(var(--bg-shade,#fff),var(--bg-shade,#fff)),url("assets/bg/canvas-weave.webp") 0 0/140px auto,url("assets/bg/canvas.webp") center top/115% auto repeat-y,#b7a798;background-blend-mode:multiply,overlay,normal}
 html[data-bg] .gift-photo{background:#ede4d6 content-box}
 /* светлые текст и линии для тёмного фона (data-ink ставит скрипт в <head>) */
 html[data-ink="light"]{--ink:#f7eee1;--violet:#d4c4ff;--muted:#b9a99f}
@@ -132,7 +132,7 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   .page{padding:0 40px 40px}
   .hero-name,.hero-tag,.hero-city,.hero-date,.kicker,.site-footer{font-size:16px}
   .title{font-size:34px}
-  .about-text{font-size:18px}
+  .about-text,.rules-hint b,.rules-help{font-size:18px}
   .about-text span{padding-left:calc(var(--i) * .5px)}
   .stamp{width:150px}
   .gift-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 28px}
@@ -143,7 +143,7 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   body,.page{background:#fff url("assets/paper.webp") center top/100vw auto repeat-y}
   html[data-bg="3"] body::before{background-position:center top;background-size:1500px auto}
   html[data-bg="7"] body::before{background-size:858px auto}
-  html[data-bg="8"] body::before{background-size:233px auto,100% auto}
+  html[data-bg="8"] body::before{background-size:auto,233px auto,100% auto}
   html[data-bg="5"] body::before{background-size:192px auto,100% auto}
   html[data-bg="6"] body::before{background-size:144px auto,100% auto}
   /* средние подписи «как это работает» лежат на светлом небе фото канала — им оставляем тёмный фиолетовый */
@@ -151,12 +151,14 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   /* --scale уменьшает весь макет; не уже 1100px, чтобы мелкий текст оставался читаемым. */
   .page{--scale:.7;container-type:inline-size;width:max(calc(100% * var(--scale)),min(100%,1100px));max-width:calc(1920px * var(--scale));padding:0;overflow:visible}
   /* --dy — сдвиг секции по вертикали относительно макета (после правок блоки стали другой высоты) */
-  .stage{--u:calc(100cqw / 1440);--dy:0;position:relative;height:calc(10905 * var(--u))}
+  /* --t — «пиксель на экране 1920px»: размеры текста, которые заказчица задала в px, на экране от 1920px
+     ровно такие, на меньших уменьшаются вместе со всем макетом. --wave — размер волнистого текста «о списке». */
+  .stage{--u:calc(100cqw / 1440);--t:calc(100cqw / 1344);--wave:calc(17 * var(--u));--dy:0;position:relative;height:calc(11656 * var(--u))}
   .hero,.about,.rules,.gifts,.fallback,.contacts{display:block;margin:0;padding:0}
   .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc((var(--y) + var(--dy)) * var(--u));margin:0}
   .anchor-end{text-align:right;white-space:nowrap;transform:translateX(-100%)}
   .gifts{--dy:108}
-  .fallback,.contacts,.site-footer{--dy:-553}
+  .fallback,.contacts,.site-footer{--dy:227}
   .box>*{--dy:0}
 
   .hero-name,.hero-tag,.hero-city,.hero-date,.kicker,.site-footer{font-size:calc(16 * var(--u));white-space:pre}
@@ -164,7 +166,7 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   .title{font-size:calc(36 * var(--u));line-height:1.361;white-space:nowrap}
 
   /* --f уменьшает текст «о списке» вместе с отступами лесенки, центр блока остаётся на 720 */
-  .about-text{--f:.85;left:calc((720 - 426 * var(--f)) * var(--u));width:calc(852 * var(--f) * var(--u));font-size:calc(20 * var(--f) * var(--u))}
+  .about-text{--f:.85;left:calc((720 - 426 * var(--f)) * var(--u));width:calc(852 * var(--f) * var(--u));font-size:var(--wave)}
   .about-text span{padding-left:calc(var(--i) * var(--f) * var(--u));white-space:nowrap}
   .stamp{width:calc(180.3 * var(--u));height:calc(163.7 * var(--u))}
 
@@ -174,27 +176,30 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   .rules>*{--u:calc(100cqw / 1440 * var(--k))}
   .rules-bike{width:calc(306 * var(--u));height:calc(153 * var(--u))}
   .rules-hint{text-align:left;white-space:nowrap}
-  .rules-hint span{font-size:max(calc(6.5 * var(--u)),7px)}
-  .rules-hint b{font-size:max(calc(10 * var(--u)),8.5px)}
+  .rules-hint span{font-size:calc(12 * var(--t))}
+  .rules-hint b{font-size:var(--wave)}
   .rules-canal{width:calc(306 * var(--u));height:calc(306 * var(--u))}
   .notes{display:block;max-width:none;text-align:left}
   .notes li{display:contents}
-  .note{font-size:max(calc(8 * var(--u)),7px);line-height:1.375;white-space:pre}
-  .rules-help{max-width:none;font-size:max(calc(10 * var(--u)),8.5px);line-height:1;letter-spacing:.06em;white-space:pre;transform:translateX(-50%)}
+  .note{font-size:calc(12 * var(--t));line-height:1.375;white-space:pre}
+  .rules-help{max-width:none;font-size:var(--wave);line-height:1.35;letter-spacing:.06em;white-space:pre;transform:translateX(-50%)}
 
   .gift-list{display:block;margin:0}
   .gift{display:contents}
-  /* Текст карточки ставится от фото с одинаковым отступом --gap. --lead — расстояние от верха строки
-     заголовка до верха строчных букв: по фото выравниваются сами буквы, а не строка. */
-  .gift{--gap:20;--lead:8.7}
-  .gift-num{position:absolute;left:calc((var(--ix) + var(--is) / 2) * var(--u));top:calc((var(--iy) + var(--dy) - 22) * var(--u));margin:0;font-size:calc(13 * var(--u));transform:translateX(-50%)}
+  /* Фото — 222px на экране 1920 (--is в единицах макета). Текст карточки ставится от фото с одинаковым
+     отступом --gap; верх строчных букв заголовка — вровень с верхом фото. Где браузер умеет text-box,
+     строка заголовка обрезается ровно по высоте строчных, иначе --lead — расстояние от верха строки
+     до верха строчных по метрикам Manrope. */
+  .gift{--gap:20;--lead:10.2;--is:calc(222 * 1440 / 1344)}
+  @supports (text-box:trim-start ex alphabetic){.gift{--lead:0}.gift-info h3{text-box:trim-start ex alphabetic}}
+  .gift-num{position:absolute;left:calc((var(--ix) + var(--is) / 2) * var(--u));top:calc((var(--iy) + var(--dy) - 23) * var(--u));margin:0;font-size:calc(12 * var(--t));transform:translateX(-50%)}
   .gift-photo{position:absolute;left:calc(var(--ix) * var(--u));top:calc((var(--iy) + var(--dy)) * var(--u));width:calc(var(--is) * var(--u));height:calc(var(--is) * var(--u));padding:calc(var(--is) * .025 * var(--u))}
   .gift-info{position:absolute;width:calc(var(--tw) * var(--u));margin:0;align-items:flex-start;text-align:left}
-  .gift-info h3{font-size:calc(17 * var(--u))}
-  .gift-desc{width:calc(var(--dw) * var(--u));margin-top:calc(4 * var(--u));font-size:max(calc(11 * var(--u)),9.5px);white-space:pre-line}
+  .gift-info h3{font-size:calc(18 * var(--t))}
+  .gift-desc{width:calc(var(--dw) * var(--u));margin-top:calc(5 * var(--u));font-size:calc(12 * var(--t));white-space:pre-line}
   /* кнопка и строка с ценой — ровно в ширину фото */
-  .gift-meta{width:calc(var(--is) * var(--u));margin-top:calc(11 * var(--u));font-size:max(calc(13 * var(--u)),11px)}
-  .reserve{width:calc(var(--is) * var(--u));margin-top:calc(11 * var(--u));padding:calc(8 * var(--u));font-size:max(calc(11 * var(--u)),9.5px)}
+  .gift-meta{width:calc(var(--is) * var(--u));margin-top:calc(13 * var(--u));font-size:calc(14 * var(--t))}
+  .reserve{width:calc(var(--is) * var(--u));margin-top:calc(13 * var(--u));padding:calc(9 * var(--u));font-size:calc(12 * var(--t))}
   .gift--right .gift-info{left:calc((var(--ix) + var(--is) + var(--gap)) * var(--u))}
   .gift--left .gift-info{left:calc((var(--ix) - var(--gap) - var(--tw)) * var(--u))}
   .gift--top .gift-info{top:calc((var(--iy) + var(--dy) - var(--lead)) * var(--u))}
@@ -209,19 +214,20 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
 
   .contacts-note{font-size:calc(14 * var(--u))}
   .contact-boxes{display:block;margin:0}
-  .box{display:block;width:calc(398 * var(--u));height:calc(380 * var(--u));padding:0}
-  .box-title{font-size:calc(14 * var(--u))}
-  .pickup-label{font-size:calc(12 * var(--u))}
-  .pickup-address{width:calc(345 * var(--u));font-size:calc(18 * var(--u))}
-  .dots{width:calc(348 * var(--u))}
-  .pickup-note{width:calc(308 * var(--u));font-size:calc(12 * var(--u))}
-  .bank-card{width:calc(347 * var(--u));max-width:none}
-  .box-button{padding:calc(10 * var(--u)) calc(8 * var(--u));font-size:max(calc(10 * var(--u)),8.5px)}
-  .bank-copy{width:calc(347 * var(--u));max-width:none}
-  .tg-handle{font-size:calc(30 * var(--u));white-space:nowrap}
-  .tg-channel{font-size:calc(24 * var(--u));white-space:nowrap}
-  .tg-about{width:calc(308 * var(--u));font-size:calc(14 * var(--u));line-height:1.357;white-space:pre-line}
-  .tg-buttons{display:block;margin:0}
-  .tg-button{width:calc(155 * var(--u))}
+  /* Блоки контактов: поля 16 со всех сторон (внутренняя ширина 366). Первая строка всех трёх блоков —
+     верх надписи «wildberries, ozon», верх карты и верх букв «@liasslv» — на одной линии (координаты в
+     index.html посчитаны по метрикам Manrope). Между подписью пункта и адресом — тот же зазор 6, что
+     между «сусличья нора» и описанием. */
+  .box{display:block;width:calc(398 * var(--u));height:calc(351 * var(--u));padding:0}
+  .box-title{font-size:calc(14 * var(--t))}
+  .pickup-label{font-size:calc(12 * var(--t))}
+  .pickup-address{width:calc(366 * var(--u));font-size:calc(18 * var(--t));white-space:nowrap}
+  .dots{width:calc(365 * var(--u))}
+  .pickup-note{width:calc(366 * var(--u));font-size:calc(14 * var(--t))}
+  .bank-card{width:calc(366 * var(--u));max-width:none}
+  .box-button{padding:calc(10 * var(--u)) calc(8 * var(--u));font-size:calc(12 * var(--t))}
+  .bank-copy{width:calc(366 * var(--u));max-width:none}
+  .tg-handle,.tg-channel{font-size:calc(24 * var(--t));white-space:nowrap}
+  .tg-about{width:calc(366 * var(--u));font-size:calc(14 * var(--t));line-height:1.357;white-space:pre-line}
   .site-footer{display:block;margin:0}
 }
