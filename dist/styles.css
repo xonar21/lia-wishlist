@@ -113,9 +113,10 @@ html[data-bg="4"] body::before{background:url("assets/bg/velvet-grain.webp") 0 0
 html[data-bg="5"] body::before{background:url("assets/bg/leaf-pink-grain.webp") 0 0/192px auto,url("assets/bg/leaf-pink.webp") center top/1000px auto,#d2ac9a;background-blend-mode:overlay,normal}
 html[data-bg="6"] body::before{background:url("assets/bg/leaf-dark-grain.webp") 0 0/144px auto,url("assets/bg/leaf-dark.webp") center top/1000px auto,#795b51;background-blend-mode:overlay,normal}
 html[data-bg="7"] body::before{background:#f0e7db url("assets/bg/kiss.webp") 0 0/643px auto}
-/* Холст: пятна краски — лента из четырёх отражений картины (tools/bg/canvas.py), растянута на ширину,
-   поверх — нитки холста в родном размере */
-html[data-bg="8"] body::before{background:url("assets/bg/canvas-weave.webp") 0 0/140px auto,url("assets/bg/canvas.webp") center top/100% auto repeat-y,#b49d86;background-blend-mode:overlay,normal}
+/* Холст: пятна краски — лента из четырёх отражений картины с чистым холстом по бокам (tools/bg/canvas.py),
+   поверх — нитки холста в родном размере. На десктопе картина — 80% ширины, на телефоне лента шире
+   экрана, и картина занимает почти всю ширину */
+html[data-bg="8"] body::before{background:url("assets/bg/canvas-weave.webp") 0 0/140px auto,url("assets/bg/canvas.webp") center top/115% auto repeat-y,#b7a798;background-blend-mode:overlay,normal}
 html[data-bg] .gift-photo{background:#ede4d6 content-box}
 /* светлые текст и линии для тёмного фона (data-ink ставит скрипт в <head>) */
 html[data-ink="light"]{--ink:#f7eee1;--violet:#d4c4ff;--muted:#b9a99f}
