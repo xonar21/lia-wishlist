@@ -223,14 +223,15 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   .contacts-note{font-size:calc(14 * var(--u))}
   /* Блоки контактов: поля 20, между блоками 32 (px экрана 1920, --t); три блока делят ширину колонки
      поровну, высота — по самому высокому. Внутри — обычный поток. Первая строка всех трёх блоков
-     («wildberries, ozon», карта, «@liasslv») — на 24 ниже заголовка, как задала заказчица в devtools.
+     («wildberries, ozon», карта) — на 24 ниже заголовка, «@liasslv» — на 6, как задала заказчица в devtools.
      Приписка о получателе прижата к низу блока (margin-top:auto).
      Между подписью пункта и адресом — тот же зазор 6, что между «сусличья нора» и описанием. */
   .contact-boxes{display:flex;gap:calc(32 * var(--t));width:calc(1308 * var(--u))}
   .box{flex:1 1 0;min-width:0;gap:0;padding:calc(20 * var(--t))}
   .box-title{font-size:calc(14 * var(--t))}
   .pickup-label{margin-top:calc(13 * var(--t));font-size:calc(12 * var(--t))}
-  .box-title+.pickup-label,.tg-handle{margin-top:calc(24 * var(--t))}
+  .box-title+.pickup-label{margin-top:calc(24 * var(--t))}
+  .tg-handle{margin-top:calc(6 * var(--t))}
   .pickup-address{margin-top:calc(6 * var(--t));font-size:calc(18 * var(--t))}
   .dots{margin-top:calc(11 * var(--t))}
   .pickup-note{margin-top:auto;font-size:calc(14 * var(--t))}
@@ -238,7 +239,7 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   .box-button{padding:calc(10 * var(--t)) calc(8 * var(--t));font-size:calc(12 * var(--t))}
   .bank-copy{max-width:none;margin-top:calc(13 * var(--t))}
   .tg-handle,.tg-channel{font-size:calc(24 * var(--t));white-space:nowrap}
-  .tg-handle+.box-title{margin-top:calc(19 * var(--t))}
+  .tg-handle+.box-title{margin-top:calc(24 * var(--t))}
   .tg-channel,.tg-about{margin-top:calc(6 * var(--t))}
   .tg-about{font-size:calc(14 * var(--t));line-height:1.357;white-space:pre-line}
   .site-footer{display:block;margin:0}
