@@ -152,9 +152,12 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   /* --scale уменьшает весь макет; не уже 1100px, чтобы мелкий текст оставался читаемым. */
   .page{--scale:.7;container-type:inline-size;width:max(calc(100% * var(--scale)),min(100%,1100px));max-width:calc(1920px * var(--scale));padding:0;overflow:visible}
   /* --dy — сдвиг секции по вертикали относительно макета (после правок блоки стали другой высоты) */
-  /* --t — «пиксель на экране 1920px»: размеры текста, которые заказчица задала в px, на экране от 1920px
-     ровно такие, на меньших уменьшаются вместе со всем макетом. --wave — размер волнистого текста «о списке». */
+  /* --t — «пиксель заказчицы»: размеры, которые она задала в px (текст, фото 222), ровно 1px, когда страница
+     от 1320px — то есть на любом экране 1920 (с полосой прокрутки страница 1333.5px) и шире. На экранах
+     поменьше --t уменьшается вместе с макетом, иначе текст не влезет в свои места. --wave — размер волнистого
+     текста «о списке». */
   .stage{--u:calc(100cqw / 1440);--t:calc(100cqw / 1344);--wave:calc(17 * var(--u));--dy:0;position:relative;height:calc(11656 * var(--u))}
+  @container (min-width:1320px){.stage{--t:1px}}
   .hero,.about,.rules,.gifts,.fallback,.contacts{display:block;margin:0;padding:0}
   .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc((var(--y) + var(--dy)) * var(--u));margin:0}
   .anchor-end{text-align:right;white-space:nowrap;transform:translateX(-100%)}
@@ -187,27 +190,28 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
 
   .gift-list{display:block;margin:0}
   .gift{display:contents}
-  /* Фото — 222px на экране 1920 (--is в единицах макета). Текст карточки ставится от фото с одинаковым
+  /* Фото — ровно 222×222 (--is — длина в --t; координаты карточки — в единицах макета --u), внутри рамки
+     поле 5, так что само изображение 210×210. Текст карточки ставится от фото с одинаковым
      отступом --gap; верх строчных букв заголовка — вровень с верхом фото. Где браузер умеет text-box,
      строка заголовка обрезается ровно по высоте строчных, иначе --lead — расстояние от верха строки
      до верха строчных по метрикам Manrope. */
-  .gift{--gap:20;--lead:10.2;--is:calc(222 * 1440 / 1344)}
+  .gift{--gap:20;--lead:10.2;--is:calc(222 * var(--t))}
   @supports (text-box:trim-start ex alphabetic){.gift{--lead:0}.gift-info h3{text-box:trim-start ex alphabetic}}
-  .gift-num{position:absolute;left:calc((var(--ix) + var(--is) / 2) * var(--u));top:calc((var(--iy) + var(--dy) - 23) * var(--u));margin:0;font-size:calc(12 * var(--t));transform:translateX(-50%)}
-  .gift-photo{position:absolute;left:calc(var(--ix) * var(--u));top:calc((var(--iy) + var(--dy)) * var(--u));width:calc(var(--is) * var(--u));height:calc(var(--is) * var(--u));padding:calc(var(--is) * .025 * var(--u))}
+  .gift-num{position:absolute;left:calc(var(--ix) * var(--u) + var(--is) / 2);top:calc((var(--iy) + var(--dy) - 23) * var(--u));margin:0;font-size:calc(12 * var(--t));transform:translateX(-50%)}
+  .gift-photo{position:absolute;left:calc(var(--ix) * var(--u));top:calc((var(--iy) + var(--dy)) * var(--u));width:var(--is);height:var(--is);padding:calc(5 * var(--t))}
   .gift-info{position:absolute;width:calc(var(--tw) * var(--u));margin:0;align-items:flex-start;text-align:left}
   .gift-info h3{font-size:calc(18 * var(--t))}
   .gift-desc{width:calc(var(--dw) * var(--u));margin-top:calc(5 * var(--u));font-size:calc(12 * var(--t));white-space:pre-line}
   /* кнопка и строка с ценой — ровно в ширину фото */
-  .gift-meta{width:calc(var(--is) * var(--u));margin-top:calc(13 * var(--u));font-size:calc(14 * var(--t))}
-  .reserve{width:calc(var(--is) * var(--u));margin-top:calc(13 * var(--u));padding:calc(9 * var(--u));font-size:calc(12 * var(--t))}
-  .gift--right .gift-info{left:calc((var(--ix) + var(--is) + var(--gap)) * var(--u))}
+  .gift-meta{width:var(--is);margin-top:calc(13 * var(--u));font-size:calc(14 * var(--t))}
+  .reserve{width:var(--is);margin-top:calc(13 * var(--u));padding:calc(9 * var(--u));font-size:calc(12 * var(--t))}
+  .gift--right .gift-info{left:calc((var(--ix) + var(--gap)) * var(--u) + var(--is))}
   .gift--left .gift-info{left:calc((var(--ix) - var(--gap) - var(--tw)) * var(--u))}
   .gift--top .gift-info{top:calc((var(--iy) + var(--dy) - var(--lead)) * var(--u))}
-  .gift--bottom .gift-info{top:calc((var(--iy) + var(--dy) + var(--is)) * var(--u));transform:translateY(-100%)}
-  .gift--below .gift-info{top:calc((var(--iy) + var(--dy) + var(--is) + var(--gap) - var(--lead)) * var(--u))}
-  .gift--center .gift-info{left:calc((var(--ix) + (var(--is) - var(--tw)) / 2) * var(--u));align-items:center;text-align:center}
-  .gift--end .gift-info{left:calc((var(--ix) + var(--is) - var(--tw)) * var(--u))}
+  .gift--bottom .gift-info{top:calc((var(--iy) + var(--dy)) * var(--u) + var(--is));transform:translateY(-100%)}
+  .gift--below .gift-info{top:calc((var(--iy) + var(--dy) + var(--gap) - var(--lead)) * var(--u) + var(--is))}
+  .gift--center .gift-info{left:calc(var(--ix) * var(--u) + (var(--is) - var(--tw) * var(--u)) / 2);align-items:center;text-align:center}
+  .gift--end .gift-info{left:calc((var(--ix) - var(--tw)) * var(--u) + var(--is))}
   .gift--left .gift-info,.gift--end .gift-info{align-items:flex-end;text-align:right}
 
   .fallback-text{width:calc(978 * var(--u));font-size:calc(18 * var(--u));white-space:pre;transform:translateX(-50%)}
@@ -215,20 +219,20 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
 
   .contacts-note{font-size:calc(14 * var(--u))}
   .contact-boxes{display:block;margin:0}
-  /* Блоки контактов: поля 16 со всех сторон (внутренняя ширина 366). Первая строка всех трёх блоков —
+  /* Блоки контактов: поля 12 по бокам и 16 сверху (внутренняя ширина 372 — чтобы адреса 18px помещались в строку). Первая строка всех трёх блоков —
      верх надписи «wildberries, ozon», верх карты и верх букв «@liasslv» — на одной линии (координаты в
      index.html посчитаны по метрикам Manrope). Между подписью пункта и адресом — тот же зазор 6, что
      между «сусличья нора» и описанием. */
   .box{display:block;width:calc(398 * var(--u));height:calc(351 * var(--u));padding:0}
   .box-title{font-size:calc(14 * var(--t))}
   .pickup-label{font-size:calc(12 * var(--t))}
-  .pickup-address{width:calc(366 * var(--u));font-size:calc(18 * var(--t));white-space:nowrap}
-  .dots{width:calc(365 * var(--u))}
-  .pickup-note{width:calc(366 * var(--u));font-size:calc(14 * var(--t))}
-  .bank-card{width:calc(366 * var(--u));max-width:none}
+  .pickup-address{width:calc(372 * var(--u));font-size:calc(18 * var(--t));white-space:nowrap}
+  .dots{width:calc(371 * var(--u))}
+  .pickup-note{width:calc(372 * var(--u));font-size:calc(14 * var(--t))}
+  .bank-card{width:calc(372 * var(--u));max-width:none}
   .box-button{padding:calc(10 * var(--u)) calc(8 * var(--u));font-size:calc(12 * var(--t))}
-  .bank-copy{width:calc(366 * var(--u));max-width:none}
+  .bank-copy{width:calc(372 * var(--u));max-width:none}
   .tg-handle,.tg-channel{font-size:calc(24 * var(--t));white-space:nowrap}
-  .tg-about{width:calc(366 * var(--u));font-size:calc(14 * var(--t));line-height:1.357;white-space:pre-line}
+  .tg-about{width:calc(372 * var(--u));font-size:calc(14 * var(--t));line-height:1.357;white-space:pre-line}
   .site-footer{display:block;margin:0}
 }

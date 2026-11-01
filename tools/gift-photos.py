@@ -1,5 +1,6 @@
-# Фото подарков: python3 tools/gift-photos.py <папка с исходниками> dist/assets/gifts
-# Каждое фото обрезается в квадрат по главному объекту (CROP — сдвиг квадрата по длинной стороне,
+# Фото подарков: python3 tools/gift-photos.py <папка с исходниками> dist/assets/gifts [имя ...]
+# (с именами пересобираются только эти фото). Если у исходника есть белые поля, их сначала срезаем
+# (TRIM — сколько px убрать слева, сверху, справа, снизу). Каждое фото обрезается в квадрат по главному объекту (CROP — сдвиг квадрата по длинной стороне,
 # доля от свободного хода: 0 — верх/лево, .5 — центр, 1 — низ/право), уменьшается до 600×600
 # и заранее «впечатывается» в бумагу: в макете фото лежат на бумаге режимом linear burn
 # (бумага + фото − 1), а на сайте их кладём через multiply (бумага × фото), поэтому
@@ -7,7 +8,7 @@
 import os, sys
 from PIL import Image
 
-SRC, OUT = sys.argv[1], sys.argv[2]
+SRC, OUT, ONLY = sys.argv[1], sys.argv[2], set(sys.argv[3:])
 PAPER = (0xed, 0xe4, 0xd6)
 SIZE = 600
 # имя на сайте: (файл от заказчицы, CROP)
@@ -23,7 +24,7 @@ PHOTOS = {
     'mittens': ('Cozy Mittens and Dark Waves.png', .75),
     'projector': ('утв8.jpg', .2),
     'hp-shopper': ('переделать формат.jpg', .35),
-    'hp-cap': ('переделать формат2.jpg', .75),
+    'hp-cap': ('переделать формат2.jpg', .69),
     'hp-tshirt': ('футболка.jpg', .45),
     'marmelad': ('Colorful Sugar Gummy Candy Flat Lay.png', .5),
     'board': ('Cozy Sunlit Whiteboard Workspace.png', .6),
@@ -33,10 +34,17 @@ PHOTOS = {
     'dried-flowers': ('переделать формат7.jpg', .6),
     'microphone': ('Premium Furry Lavalier Microphone Product Shot.png', .7),
 }
+# у кепки фото вставлено в белый кадр: поля 48 px слева и 44 справа (+2 px на размытый край JPEG)
+TRIM = {'hp-cap': (50, 0, 46, 0)}
 
 os.makedirs(OUT, exist_ok=True)
 for name, (file, pos) in PHOTOS.items():
+    if ONLY and name not in ONLY:
+        continue
     im = Image.open(os.path.join(SRC, file)).convert('RGB')
+    if name in TRIM:
+        l, t, r, b = TRIM[name]
+        im = im.crop((l, t, im.width - r, im.height - b))
     side = min(im.size)
     x0 = round((im.width - side) * pos) if im.width > side else 0
     y0 = round((im.height - side) * pos) if im.height > side else 0
