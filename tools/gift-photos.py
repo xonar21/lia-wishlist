@@ -15,7 +15,7 @@ SIZE = 600
 PHOTOS = {
     'photostudio': ('утв1.jpg', .5),
     'ceramics': ('утв2.jpg', .5),
-    'irrigator': ('утв3.png', .45),
+    'irrigator': ('ирригатор.png', .5),
     'mouse': ('мышь2.jpg', .4),
     'painting-1': ('Dusk Street by the Soviet Apartment Block.png', .4),
     'painting-2': ('Nostalgic Retro Gallery Grid.png', .5),

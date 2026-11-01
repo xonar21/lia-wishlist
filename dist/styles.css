@@ -46,12 +46,13 @@ a{color:inherit}
 .gift-photo img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 .gift-info{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;margin-top:12px}
 .gift-info h3{width:100%;font-size:16px;font-weight:400;line-height:1.375;letter-spacing:.01em}
-.gift-desc{flex:1;width:100%;margin-top:4px;font-size:13px;font-weight:350;line-height:1.4}
+.gift-desc{flex:1;width:100%;margin-top:4px;font-size:13px;font-weight:350;line-height:1.4;text-wrap:pretty}
 /* приписка — отдельным абзацем внутри описания (через пустую строку), чтобы ряды выравнивались вместе с ней */
 .gift-note{display:block;margin-top:1.4em}
 .gift-meta{display:flex;justify-content:space-between;gap:2px 10px;width:100%;margin-top:10px;font-size:14px;letter-spacing:.01em;text-align:left}
 .gift-meta>*{letter-spacing:inherit}
 .gift-meta a{font-weight:200}
+.gift-meta span{font-weight:600}
 .reserve{width:100%;margin-top:10px;padding:9px 6px;border:.5px solid var(--ink);border-radius:100px;background:transparent;color:var(--ink);font:400 12px/1.366 Manrope,Arial,sans-serif;letter-spacing:.04em;cursor:pointer;transition:background-color .2s,color .2s}
 .reserve:not(:disabled):hover{background:rgba(40,35,32,.08)}
 .reserve.is-own{background:var(--dark);color:var(--cream)}
@@ -76,6 +77,8 @@ a{color:inherit}
 /* крупный текст (адреса, ник, канал) — без разрядки, иначе самый длинный адрес не влезает в строку */
 .pickup-address{font-size:18px;letter-spacing:normal}
 .nowrap{white-space:nowrap}
+/* «санкт-петербург» в адресе — с тем же межбуквенным, что и весь адрес (иначе * даёт ему .04em и адрес сдэка не влезает в строку) */
+.pickup-address .nowrap{letter-spacing:inherit}
 .dots{display:block;width:100%;height:1px;background:url("assets/dots.svg") left center/100% 1px no-repeat}
 .pickup-note{margin-top:24px;font-size:14px;line-height:1.333}
 /* В макете фото карты наложено в режиме multiply на бумагу. Карта — контейнер (а значит
@@ -156,13 +159,13 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
      от 1320px — то есть на любом экране 1920 (с полосой прокрутки страница 1333.5px) и шире. На экранах
      поменьше --t уменьшается вместе с макетом, иначе текст не влезет в свои места. --wave — размер волнистого
      текста «о списке». */
-  .stage{--u:calc(100cqw / 1440);--t:calc(100cqw / 1344);--wave:calc(17 * var(--u));--dy:0;position:relative;height:calc(11709 * var(--u))}
+  .stage{--u:calc(100cqw / 1440);--t:calc(100cqw / 1344);--wave:calc(17 * var(--u));--dy:0;position:relative;height:calc(11927 * var(--u))}
   @container (min-width:1320px){.stage{--t:1px}}
   .hero,.about,.rules,.gifts,.fallback,.contacts{display:block;margin:0;padding:0}
   .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc((var(--y) + var(--dy)) * var(--u));margin:0}
   .anchor-end{text-align:right;white-space:nowrap;transform:translateX(-100%)}
   .gifts{--dy:108}
-  .fallback,.contacts,.site-footer{--dy:227}
+  .fallback,.contacts,.site-footer{--dy:462}
   .box>*{--dy:0}
 
   .hero-name,.hero-tag,.hero-city,.hero-date,.kicker,.site-footer{font-size:calc(16 * var(--u));white-space:pre}
@@ -218,20 +221,20 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   .fallback-dog{width:calc(158 * var(--u));height:calc(152 * var(--u))}
 
   .contacts-note{font-size:calc(14 * var(--u))}
-  /* Блоки контактов: поля 25, между блоками 37 (px экрана 1920, --t); три блока делят ширину колонки
-     поровну, высота — по самому высокому. Внутри — обычный поток. Первая строка всех трёх блоков —
-     верх букв «wildberries, ozon», верх карты и верх букв «@liasslv» — на одной линии: 13 под заголовком;
-     у текста верх букв с выносными элементами (l, d, b) лежит на .316em ниже верха строки (метрики Manrope).
+  /* Блоки контактов: поля 20, между блоками 32 (px экрана 1920, --t); три блока делят ширину колонки
+     поровну, высота — по самому высокому. Внутри — обычный поток. Первая строка всех трёх блоков
+     («wildberries, ozon», карта, «@liasslv») — на 24 ниже заголовка, как задала заказчица в devtools.
+     Приписка о получателе прижата к низу блока (margin-top:auto).
      Между подписью пункта и адресом — тот же зазор 6, что между «сусличья нора» и описанием. */
-  .contact-boxes{display:flex;gap:calc(37 * var(--t));width:calc(1308 * var(--u))}
-  .box{flex:1 1 0;min-width:0;gap:0;padding:calc(25 * var(--t))}
+  .contact-boxes{display:flex;gap:calc(32 * var(--t));width:calc(1308 * var(--u))}
+  .box{flex:1 1 0;min-width:0;gap:0;padding:calc(20 * var(--t))}
   .box-title{font-size:calc(14 * var(--t))}
   .pickup-label{margin-top:calc(13 * var(--t));font-size:calc(12 * var(--t))}
-  .box-title+.pickup-label,.tg-handle{margin-top:calc(13 * var(--t) - .316em)}
+  .box-title+.pickup-label,.tg-handle{margin-top:calc(24 * var(--t))}
   .pickup-address{margin-top:calc(6 * var(--t));font-size:calc(18 * var(--t))}
   .dots{margin-top:calc(11 * var(--t))}
-  .pickup-note{margin-top:calc(25 * var(--t));font-size:calc(14 * var(--t))}
-  .bank-card{max-width:none;margin-top:calc(13 * var(--t))}
+  .pickup-note{margin-top:auto;font-size:calc(14 * var(--t))}
+  .bank-card{max-width:none;margin-top:calc(24 * var(--t))}
   .box-button{padding:calc(10 * var(--t)) calc(8 * var(--t));font-size:calc(12 * var(--t))}
   .bank-copy{max-width:none;margin-top:calc(13 * var(--t))}
   .tg-handle,.tg-channel{font-size:calc(24 * var(--t));white-space:nowrap}
