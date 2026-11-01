@@ -46,10 +46,10 @@ a{color:inherit}
 .gift-photo img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 .gift-info{flex:1;display:flex;flex-direction:column;align-items:center;width:100%;margin-top:12px}
 .gift-info h3{width:100%;font-size:16px;font-weight:400;line-height:1.375;letter-spacing:.01em}
-.gift-desc{flex:1;width:100%;margin-top:4px;font-size:12px;font-weight:200;line-height:1.4}
-/* практическая приписка (цена с картой, доставка) — отдельной строкой внутри описания, чтобы ряды выравнивались вместе с ней */
-.gift-note{display:block;margin-top:.5em;font-weight:400}
-.gift-meta{display:flex;justify-content:space-between;width:100%;margin-top:10px;font-size:14px;letter-spacing:.01em;white-space:nowrap}
+.gift-desc{flex:1;width:100%;margin-top:4px;font-size:13px;font-weight:350;line-height:1.4}
+/* приписка — отдельным абзацем внутри описания (через пустую строку), чтобы ряды выравнивались вместе с ней */
+.gift-note{display:block;margin-top:1.4em}
+.gift-meta{display:flex;justify-content:space-between;gap:2px 10px;width:100%;margin-top:10px;font-size:14px;letter-spacing:.01em;text-align:left}
 .gift-meta>*{letter-spacing:inherit}
 .gift-meta a{font-weight:200}
 .reserve{width:100%;margin-top:10px;padding:9px 6px;border:.5px solid var(--ink);border-radius:100px;background:transparent;color:var(--ink);font:400 12px/1.366 Manrope,Arial,sans-serif;letter-spacing:.04em;cursor:pointer;transition:background-color .2s,color .2s}
@@ -156,7 +156,7 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
      от 1320px — то есть на любом экране 1920 (с полосой прокрутки страница 1333.5px) и шире. На экранах
      поменьше --t уменьшается вместе с макетом, иначе текст не влезет в свои места. --wave — размер волнистого
      текста «о списке». */
-  .stage{--u:calc(100cqw / 1440);--t:calc(100cqw / 1344);--wave:calc(17 * var(--u));--dy:0;position:relative;height:calc(11656 * var(--u))}
+  .stage{--u:calc(100cqw / 1440);--t:calc(100cqw / 1344);--wave:calc(17 * var(--u));--dy:0;position:relative;height:calc(11709 * var(--u))}
   @container (min-width:1320px){.stage{--t:1px}}
   .hero,.about,.rules,.gifts,.fallback,.contacts{display:block;margin:0;padding:0}
   .abs{position:absolute;left:calc(var(--x) * var(--u));top:calc((var(--y) + var(--dy)) * var(--u));margin:0}
@@ -199,40 +199,44 @@ html[data-ink="light"] .reserve:disabled{color:rgba(247,238,225,.55)}
   @supports (text-box:trim-start ex alphabetic){.gift{--lead:0}.gift-info h3{text-box:trim-start ex alphabetic}}
   .gift-num{position:absolute;left:calc(var(--ix) * var(--u) + var(--is) / 2);top:calc((var(--iy) + var(--dy) - 23) * var(--u));margin:0;font-size:calc(12 * var(--t));transform:translateX(-50%)}
   .gift-photo{position:absolute;left:calc(var(--ix) * var(--u));top:calc((var(--iy) + var(--dy)) * var(--u));width:var(--is);height:var(--is);padding:calc(5 * var(--t))}
-  .gift-info{position:absolute;width:calc(var(--tw) * var(--u));margin:0;align-items:flex-start;text-align:left}
+  .gift-info{position:absolute;width:calc(var(--tw) * var(--t));margin:0;align-items:flex-start;text-align:left}
   .gift-info h3{font-size:calc(18 * var(--t))}
-  .gift-desc{width:calc(var(--dw) * var(--u));margin-top:calc(5 * var(--u));font-size:calc(12 * var(--t));white-space:pre-line}
-  /* кнопка и строка с ценой — ровно в ширину фото */
-  .gift-meta{width:var(--is);margin-top:calc(13 * var(--u));font-size:calc(14 * var(--t))}
+  .gift-desc{width:calc(var(--dw) * var(--t));margin-top:calc(5 * var(--u));font-size:calc(14 * var(--t));white-space:pre-line}
+  /* кнопка и строка с ценой — ровно в ширину фото (строку с длинной ценой можно сделать шире: --mw) */
+  .gift-meta{width:calc(var(--mw,222) * var(--t));margin-top:calc(13 * var(--u));font-size:calc(14 * var(--t));white-space:nowrap}
   .reserve{width:var(--is);margin-top:calc(13 * var(--u));padding:calc(9 * var(--u));font-size:calc(12 * var(--t))}
   .gift--right .gift-info{left:calc((var(--ix) + var(--gap)) * var(--u) + var(--is))}
-  .gift--left .gift-info{left:calc((var(--ix) - var(--gap) - var(--tw)) * var(--u))}
+  .gift--left .gift-info{left:calc((var(--ix) - var(--gap)) * var(--u) - var(--tw) * var(--t))}
   .gift--top .gift-info{top:calc((var(--iy) + var(--dy) - var(--lead)) * var(--u))}
   .gift--bottom .gift-info{top:calc((var(--iy) + var(--dy)) * var(--u) + var(--is));transform:translateY(-100%)}
   .gift--below .gift-info{top:calc((var(--iy) + var(--dy) + var(--gap) - var(--lead)) * var(--u) + var(--is))}
-  .gift--center .gift-info{left:calc(var(--ix) * var(--u) + (var(--is) - var(--tw) * var(--u)) / 2);align-items:center;text-align:center}
-  .gift--end .gift-info{left:calc((var(--ix) - var(--tw)) * var(--u) + var(--is))}
+  .gift--center .gift-info{left:calc(var(--ix) * var(--u) + (var(--is) - var(--tw) * var(--t)) / 2);align-items:center;text-align:center}
+  .gift--end .gift-info{left:calc(var(--ix) * var(--u) + var(--is) - var(--tw) * var(--t))}
   .gift--left .gift-info,.gift--end .gift-info{align-items:flex-end;text-align:right}
 
   .fallback-text{width:calc(978 * var(--u));font-size:calc(18 * var(--u));white-space:pre;transform:translateX(-50%)}
   .fallback-dog{width:calc(158 * var(--u));height:calc(152 * var(--u))}
 
   .contacts-note{font-size:calc(14 * var(--u))}
-  .contact-boxes{display:block;margin:0}
-  /* Блоки контактов: поля 12 по бокам и 16 сверху (внутренняя ширина 372 — чтобы адреса 18px помещались в строку). Первая строка всех трёх блоков —
-     верх надписи «wildberries, ozon», верх карты и верх букв «@liasslv» — на одной линии (координаты в
-     index.html посчитаны по метрикам Manrope). Между подписью пункта и адресом — тот же зазор 6, что
-     между «сусличья нора» и описанием. */
-  .box{display:block;width:calc(398 * var(--u));height:calc(351 * var(--u));padding:0}
+  /* Блоки контактов: поля 25, между блоками 37 (px экрана 1920, --t); три блока делят ширину колонки
+     поровну, высота — по самому высокому. Внутри — обычный поток. Первая строка всех трёх блоков —
+     верх букв «wildberries, ozon», верх карты и верх букв «@liasslv» — на одной линии: 13 под заголовком;
+     у текста верх букв с выносными элементами (l, d, b) лежит на .316em ниже верха строки (метрики Manrope).
+     Между подписью пункта и адресом — тот же зазор 6, что между «сусличья нора» и описанием. */
+  .contact-boxes{display:flex;gap:calc(37 * var(--t));width:calc(1308 * var(--u))}
+  .box{flex:1 1 0;min-width:0;gap:0;padding:calc(25 * var(--t))}
   .box-title{font-size:calc(14 * var(--t))}
-  .pickup-label{font-size:calc(12 * var(--t))}
-  .pickup-address{width:calc(372 * var(--u));font-size:calc(18 * var(--t));white-space:nowrap}
-  .dots{width:calc(371 * var(--u))}
-  .pickup-note{width:calc(372 * var(--u));font-size:calc(14 * var(--t))}
-  .bank-card{width:calc(372 * var(--u));max-width:none}
-  .box-button{padding:calc(10 * var(--u)) calc(8 * var(--u));font-size:calc(12 * var(--t))}
-  .bank-copy{width:calc(372 * var(--u));max-width:none}
+  .pickup-label{margin-top:calc(13 * var(--t));font-size:calc(12 * var(--t))}
+  .box-title+.pickup-label,.tg-handle{margin-top:calc(13 * var(--t) - .316em)}
+  .pickup-address{margin-top:calc(6 * var(--t));font-size:calc(18 * var(--t))}
+  .dots{margin-top:calc(11 * var(--t))}
+  .pickup-note{margin-top:calc(25 * var(--t));font-size:calc(14 * var(--t))}
+  .bank-card{max-width:none;margin-top:calc(13 * var(--t))}
+  .box-button{padding:calc(10 * var(--t)) calc(8 * var(--t));font-size:calc(12 * var(--t))}
+  .bank-copy{max-width:none;margin-top:calc(13 * var(--t))}
   .tg-handle,.tg-channel{font-size:calc(24 * var(--t));white-space:nowrap}
-  .tg-about{width:calc(372 * var(--u));font-size:calc(14 * var(--t));line-height:1.357;white-space:pre-line}
+  .tg-handle+.box-title{margin-top:calc(19 * var(--t))}
+  .tg-channel,.tg-about{margin-top:calc(6 * var(--t))}
+  .tg-about{font-size:calc(14 * var(--t));line-height:1.357;white-space:pre-line}
   .site-footer{display:block;margin:0}
 }
